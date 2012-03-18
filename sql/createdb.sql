@@ -1,6 +1,6 @@
 
 CREATE TABLE Student (
-    sid CHAR(64),
+    sid CHAR(64) NOT NULL,
     PRIMARY KEY (sid)
 );
 
@@ -21,8 +21,8 @@ CREATE TABLE Topic (
 );
 
 CREATE TABLE Course (
-    cid CHAR(32),
-    cname VARCHAR(1000),
+    cid CHAR(32) NOT NULL,
+    cname VARCHAR2(1000),
     startdate TIMESTAMP,
     enddate TIMESTAMP,
     pid INTEGER,
@@ -69,10 +69,10 @@ CREATE TABLE Question (
     qname           CHAR(64)        NOT NULL,
     text            VARCHAR2(1000)  NOT NULL,
     difficulty      INTEGER         NOT NULL,
-    hint            VARCHAR2(1000)  NOT NULL    DEFAULT '',
+    hint            VARCHAR2(1000)  DEFAULT ''  NOT NULL,
     correct_points  INTEGER         NOT NULL,
     penalty_points  INTEGER         NOT NULL,
-    explanation     VARCHAR2(1000)  NOT NULL    DEFAULT '',
+    explanation     VARCHAR2(1000)  DEFAULT ''  NOT NULL,
     PRIMARY KEY (qname)
 );
 
@@ -88,8 +88,8 @@ CREATE TABLE Answer (
     qname           CHAR(64)        NOT NULL,
     ansid           INTEGER         NOT NULL,
     text            VARCHAR2(1000)  NOT NULL,
-    correct         BOOLEAN         NOT NULL,
-    explanation     VARCHAR2(1000)  NOT NULL    DEFAULT '',
+    correct         INTEGER         NOT NULL,
+    explanation     VARCHAR2(1000)  DEFAULT ''  NOT NULL,
     PRIMARY KEY(ansid),
     FOREIGN KEY (qname) REFERENCES Question
 );
@@ -112,11 +112,10 @@ CREATE TABLE AttemptQuestion (
     qposition       INTEGER         NOT NULL,
     qname           CHAR(64)        NOT NULL,
     chosen_answer_pos   INTEGER,  /* if this is NULL, no answer has been given yet */
-    justification   VARCHAR(1000)   NOT NULL    DEFAULT '',
+    justification   VARCHAR2(1000)   DEFAULT ''   NOT NULL,
     PRIMARY KEY (attid, qposition),
     FOREIGN KEY (attid) REFERENCES Attempt,
-    FOREIGN KEY (qname) REFERENCES Question,
-    FOREIGN KEY (attid, qposition, chosen_answer_pos) REFERENCES AttemptAnswer
+    FOREIGN KEY (qname) REFERENCES Question
 );
 
 CREATE TABLE AttemptAnswer (
@@ -124,13 +123,14 @@ CREATE TABLE AttemptAnswer (
     qposition       INTEGER         NOT NULL,
     aposition       INTEGER         NOT NULL,
     ansid           INTEGER         NOT NULL,
-    
     PRIMARY KEY (attid, qposition, aposition),
     FOREIGN KEY (attid, qposition) REFERENCES AttemptQuestion,
     FOREIGN KEY (ansid) REFERENCES Answer
 );
 
-
+ALTER TABLE AttemptQuestion
+    ADD CONSTRAINT fk_attemptans 
+        FOREIGN KEY (attid, qposition, chosen_answer_pos) REFERENCES AttemptAnswer;
 
 
 
