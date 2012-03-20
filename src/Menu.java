@@ -6,9 +6,9 @@ import java.util.Scanner;
  * @author Allison
  *
  */
-public class Menu {
+public abstract class Menu {
 	
-	public Menu(){
+	public Menu() {
 		
 	}
 	
@@ -26,7 +26,6 @@ public class Menu {
 		
 		int choice = scan.nextInt();
 		return choice;
-		
 	}
 	
 	/**
@@ -45,5 +44,54 @@ public class Menu {
 		
 		return tempOptions;
 	}
+    
+    /**
+     * The main menu loop. This is the public interface to this class.
+     */
+    public void menuLoop() {
+        while (true) {
+            MenuChoice[] choices = getChoices();
+            if (choices.length == 0) {
+                // TODO: throw exception
+            }
+            MenuChoice choice = null;
+            // TODO: display choices
+            while (true) {
+                // TODO: prompt user
+                char shortcut;
+                for (MenuChoice cur: choices) {
+                    if (cur.shortcut == shortcut) {
+                        choice = cur;
+                        break;
+                    }
+                }
+                // if choice doesn't exist, print error and reprompt
+                if (choice == null) {
+                    // TODO: print error. While loop will go back and reprompt.
+                } else {
+                    break;
+                }
+            }
+            
+            // Execute menu choice
+            boolean continue_loop = onChoice(choice);
+            if (!continue_loop) {
+                break;
+            }
+        }
+    }
+    
+    /** 
+     * Get an array of all choices for this menu.  This is called each time the 
+     * menu is displayed, so it can change dynamically.
+     */
+    public abstract MenuChoice[] getChoices();
+    
+    /**
+     * Called when a menu choice is made. Only valid choices are passed to this method.
+     * @param choice 
+     * @return true if the menu should continue, otherwise false
+     */
+    public abstract boolean onChoice(MenuChoice choice);
 
 }
