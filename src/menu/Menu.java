@@ -1,3 +1,5 @@
+package edu.ncsu.csc.csc440.project1
+
 /**
  * 
  */
@@ -15,7 +17,7 @@ public abstract class Menu {
 	public char promptUser(String prompt) {
         System.out.print(prompt);
 		Scanner scan = new Scanner(System.in);
-		return scan.nextLine();
+		return scan.nextLine().toUpperCase();
 	}
 	
 	/**
@@ -85,6 +87,7 @@ public abstract class Menu {
                     // Print error. While loop will go back and reprompt.
                     System.out.println(invalidChoiceMsg());
                 } else {
+                    // Choice does exist, so exit this inner while-loop.
                     break;
                 }
             }

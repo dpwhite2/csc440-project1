@@ -5,7 +5,7 @@ public class MenuChoice {
     public String description;
     
     public MenuChoice(String shortcut, String description) {
-        this.shortcut = shortcut;
+        this.shortcut = shortcut.toUpperCase();
         this.description = description;
     }
     
