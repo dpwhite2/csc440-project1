@@ -16,18 +16,48 @@ public class ProfAddCourseMenu{
 	public boolean run(){
 			String answer = promptUser(promptText);
 			
-			Scanner scan = new Scanner(answer);
-			String cid = scan.next();
-			String cname = scan.next();
-			String start = scan.next();
-			String end = scan.next();
-			String profid = scan.next();
-			
-			// TODO do stuff with the input to prepare it for INSERT:
-			//must convert start & end into oracle TIMESTAMP format
-			
-			
-		return false;
+			try{
+				Scanner scan = new Scanner(answer);
+				String cid = scan.next();
+				String cname = scan.next();
+				String start = scan.next();
+				String end = scan.next();
+				String profid = scan.next();
+
+				//convert start & end into oracle TIMESTAMP format
+				scan = new Scanner(start).useDelimiter("/");
+				String mm = scan.next();
+				String dd = scan.next();
+				String yyyy = scan.next();
+
+				String startTimestamp = yyyy+"-"+mm+"-"+dd+" 00:00:00.0";
+
+				scan = new Scanner(end).useDelimiter("/");
+				mm = scan.next();
+				dd = scan.next();
+				yyyy = scan.next();
+
+				String endTimestamp = yyyy+"-"+mm+"-"+dd+" 00:00:00.0";
+
+				String query = "INSERT INTO Course(" +
+				"cid, cname, TIMESTAMP, TIMESTAMP, pid)" +
+				"VALUES ("+cid+", "+cname+", "+startTimestamp+", "+endTimestamp+", "+profid+")";
+
+				// TODO use query
+				//if added successfully, print line and return true
+				if(0==0){
+					System.out.println("Course added successfully.");
+					return true;
+				}
+				//if not added successfully, return false
+				else{
+					System.out.println("Sorry, we could not add this course, please try again.");
+					return false;
+				}
+			}
+			catch(Exception e){
+				throw new RuntimeException("Probem reading user input for new course");
+			}
 	}
 	
 	public String promptUser(String prompt) {

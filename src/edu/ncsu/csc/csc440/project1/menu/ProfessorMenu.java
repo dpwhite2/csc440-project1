@@ -41,7 +41,7 @@ public class ProfessorMenu extends Menu{
 		}
 		else if(choice.equals(menuChoices[1])){
 			ProfAddCourseMenu menu2 = new ProfAddCourseMenu();
-			menu2.run();
+			while(!menu2.run()); //run until it returns true
 		}
 		else if(choice.equals(menuChoices[2])){
 			return false;
