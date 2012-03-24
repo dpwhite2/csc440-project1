@@ -1,7 +1,7 @@
 /**
  * 
  */
-package menu;
+package edu.ncsu.csc.csc440.project1.menu;
 
 import java.util.Scanner;
 
