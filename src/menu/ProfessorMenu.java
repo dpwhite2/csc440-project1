@@ -40,7 +40,8 @@ public class ProfessorMenu extends Menu{
 			menu1.menuLoop();
 		}
 		else if(choice.equals(menuChoices[1])){
-			//make ProfAddCourseMenu
+			ProfAddCourseMenu menu2 = new ProfAddCourseMenu();
+			menu2.run();
 		}
 		else if(choice.equals(menuChoices[2])){
 			return false;
