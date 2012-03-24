@@ -1,3 +1,5 @@
+package edu.ncsu.csc.csc440.project1.menu;
+
 /**
  * 
  */
@@ -6,7 +8,7 @@
  * @author Allison
  *
  */
-public class ProfSelectCourseMenu extends Menu{
+public class ProfSelectCourseMenu extends Menu {
 	
 	private String promptText; //might not need this?
 	private MenuChoice[] menuChoices;

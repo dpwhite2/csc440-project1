@@ -4,6 +4,7 @@ package edu.ncsu.csc.csc440.project1.menu;
  * 
  */
 import java.util.Scanner;
+
 /**
  * @author Allison
  *
@@ -14,7 +15,7 @@ public abstract class Menu {
 	 * @param options - An array of the option available after using "fixOptions()"
 	 * @return option chosen based on options imputed
 	 */
-	public char promptUser(String prompt) {
+	public String promptUser(String prompt) {
         System.out.print(prompt);
 		Scanner scan = new Scanner(System.in);
 		return scan.nextLine().toUpperCase();
@@ -67,7 +68,7 @@ public abstract class Menu {
         while (true) {
             MenuChoice[] choices = getChoices();
             if (choices.length == 0) {
-                throw RuntimeException("getChoices() returned empty list of choices.");
+                throw new RuntimeException("getChoices() returned empty list of choices.");
             }
             displayChoices(choices);
             
@@ -85,7 +86,7 @@ public abstract class Menu {
                 // if choice doesn't exist, print error and reprompt
                 if (choice == null) {
                     // Print error. While loop will go back and reprompt.
-                    System.out.println(invalidChoiceMsg());
+                    System.out.println(invalidChoiceMsg(shortcut));
                 } else {
                     // Choice does exist, so exit this inner while-loop.
                     break;

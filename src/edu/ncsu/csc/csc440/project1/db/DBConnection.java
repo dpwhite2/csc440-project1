@@ -1,7 +1,11 @@
 package edu.ncsu.csc.csc440.project1.db;
 
 import java.sql.Connection;
-
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class DBConnection {
     
@@ -12,7 +16,7 @@ public class DBConnection {
     private static String s_url = null;
     
     
-    public DBConection() {
+    public DBConnection() throws Exception {
         // Load the driver. This creates an instance of the driver
 	    // and calls the registerDriver method to make Oracle Thin
 	    // driver available to clients.
@@ -31,7 +35,7 @@ public class DBConnection {
         }
     }
     
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
         // Get a connection from the first driver in the
 		// DriverManager list that recognizes the URL jdbcURL
         return DriverManager.getConnection(s_url, s_username, s_password);
