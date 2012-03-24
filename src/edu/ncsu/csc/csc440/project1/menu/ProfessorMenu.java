@@ -33,7 +33,6 @@ public class ProfessorMenu extends Menu{
 	 * @see Menu#onChoice(MenuChoice)
 	 */
 	public boolean onChoice(MenuChoice choice) {
-		// TODO finish
 		
 		if(choice.equals(menuChoices[0])){
 			ProfSelectCourseMenu menu1 = new ProfSelectCourseMenu();
