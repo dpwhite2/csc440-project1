@@ -1,4 +1,15 @@
 
+CREATE TABLE UserInfo (
+    userid INTEGER,
+    username CHAR(128) NOT NULL,
+    password CHAR(128) NOT NULL,
+    role CHAR(32) NOT NULL,
+    PRIMARY KEY (username),
+    CONSTRAINT userinfo_role_enum CHECK (role IN ('prof','student'))
+);
+
+CREATE SEQUENCE userinfo_ids START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE Student (
     sid CHAR(64) NOT NULL,
     PRIMARY KEY (sid)
@@ -9,16 +20,22 @@ CREATE TABLE Professor (
     PRIMARY KEY (pid)
 );
 
+CREATE SEQUENCE professor_ids START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE TA (
     taid INTEGER,
     PRIMARY KEY (taid)
 );
+
+CREATE SEQUENCE ta_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Topic (
     tid INTEGER,
     text VARCHAR2(1000),
     PRIMARY KEY (tid)
 );
+
+CREATE SEQUENCE topic_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Course (
     cid CHAR(32) NOT NULL,
@@ -65,6 +82,8 @@ CREATE TABLE Exercise (
     PRIMARY KEY (eid)
 );
 
+CREATE SEQUENCE exercise_ids START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE Question (
     qname           CHAR(64)        NOT NULL,
     text            VARCHAR2(1000)  NOT NULL,
@@ -94,6 +113,8 @@ CREATE TABLE Answer (
     FOREIGN KEY (qname) REFERENCES Question
 );
 
+CREATE SEQUENCE answer_ids START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE Attempt (
     attid           INTEGER         NOT NULL,
     eid             INTEGER         NOT NULL,
@@ -106,6 +127,8 @@ CREATE TABLE Attempt (
     FOREIGN KEY (eid) REFERENCES Exercise,
     FOREIGN KEY (sid) REFERENCES Student
 );
+
+CREATE SEQUENCE attempt_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE AttemptQuestion (
     attid           INTEGER         NOT NULL,
