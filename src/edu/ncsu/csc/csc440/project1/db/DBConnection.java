@@ -15,37 +15,37 @@ public class DBConnection {
     private static String s_username = null;
     private static String s_password = null;
     private static String s_url = null;
-    
-    
-    public DBConnection() throws Exception {
+        
+    private static void init() throws Exception {
         // Load the driver. This creates an instance of the driver
 	    // and calls the registerDriver method to make Oracle Thin
 	    // driver available to clients.
         Class.forName("oracle.jdbc.driver.OracleDriver");
-        
-        if (!s_loaded) {
-            // Load the connection config from the properties file.
-            Properties prop = new Properties();
-            InputStream is = null;
-            try {
-                is = new FileInputStream(filename);
-            } catch (FileNotFoundException e) {
-                throw e;
-            }
-            prop.load(is);
-            
-            s_username = prop.getProperty("app.db.username");
-            s_password = prop.getProperty("app.db.password");
-            s_url = prop.getProperty("app.db.url");
-            s_loaded = true;
-            
-            System.out.printf("s_username: %s\n", s_username);
-            System.out.printf("s_password: %s\n", s_password);
-            System.out.printf("s_url:      %s\n", s_url);
+
+        // Load the connection config from the properties file.
+        Properties prop = new Properties();
+        InputStream is = null;
+        try {
+            is = new FileInputStream(filename);
+        } catch (FileNotFoundException e) {
+            throw e;
         }
+        prop.load(is);
+        
+        s_username = prop.getProperty("app.db.username");
+        s_password = prop.getProperty("app.db.password");
+        s_url = prop.getProperty("app.db.url");
+        
+        System.out.printf("s_username: %s\n", s_username);
+        System.out.printf("s_password: %s\n", s_password);
+        System.out.printf("s_url:      %s\n", s_url);
     }
     
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws Exception {
+        if (!s_loaded) {
+            init();
+            s_loaded = true;
+        }
         // Get a connection from the first driver in the
 		// DriverManager list that recognizes the URL jdbcURL
         return DriverManager.getConnection(s_url, s_username, s_password);

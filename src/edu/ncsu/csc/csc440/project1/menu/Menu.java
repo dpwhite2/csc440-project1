@@ -64,7 +64,7 @@ public abstract class Menu {
     /**
      * The main menu loop. This is the public interface to this class.
      */
-    public void menuLoop() {
+    public void menuLoop() throws Exception {
         while (true) {
             MenuChoice[] choices = getChoices();
             if (choices.length == 0) {
@@ -112,6 +112,6 @@ public abstract class Menu {
      * @param choice 
      * @return true if the menu should continue, otherwise false
      */
-    public abstract boolean onChoice(MenuChoice choice);
+    public abstract boolean onChoice(MenuChoice choice) throws Exception;
 
 }
