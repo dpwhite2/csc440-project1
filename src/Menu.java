@@ -7,25 +7,15 @@ import java.util.Scanner;
  *
  */
 public abstract class Menu {
-	
-	public Menu() {
-		
-	}
-	
 	/**
 	 * @param text - The prompt text
 	 * @param options - An array of the option available after using "fixOptions()"
 	 * @return option chosen based on options imputed
 	 */
-	public int promptUser(String text, String[] options){
+	public char promptUser(String prompt) {
+        System.out.print(prompt);
 		Scanner scan = new Scanner(System.in);
-		System.out.println(text + "\n");
-		for(int i=0; i<options.length;i++){
-			System.out.println(options[i]);
-		}
-		
-		int choice = scan.nextInt();
-		return choice;
+		return scan.nextLine();
 	}
 	
 	/**
@@ -46,28 +36,54 @@ public abstract class Menu {
 	}
     
     /**
+     *
+     */
+    public String promptMsg() {
+        return "Please choose one: ";
+    }
+    
+    /**
+     *
+     */
+    public String invalidChoiceMsg(String shortcut) {
+        return "Unrecognized choice: \"" + shortcut + "\". Please try again.";
+    }
+    
+    /**
+     *
+     */
+    public void displayChoices(MenuChoice[] choices) {
+        for (MenuChoice choice: choices) {
+            System.out.printf("%s: %s\n", choice.shortcut, choice.description);
+        }
+    }
+    
+    /**
      * The main menu loop. This is the public interface to this class.
      */
     public void menuLoop() {
         while (true) {
             MenuChoice[] choices = getChoices();
             if (choices.length == 0) {
-                // TODO: throw exception
+                throw RuntimeException("getChoices() returned empty list of choices.");
             }
+            displayChoices(choices);
+            
+            // Get the user's menu choice
             MenuChoice choice = null;
-            // TODO: display choices
             while (true) {
-                // TODO: prompt user
-                char shortcut;
+                String shortcut = promptUser(promptMsg());
+                // Check that choice is a valid one.
                 for (MenuChoice cur: choices) {
-                    if (cur.shortcut == shortcut) {
+                    if (cur.shortcut.equals(shortcut)) {
                         choice = cur;
                         break;
                     }
                 }
                 // if choice doesn't exist, print error and reprompt
                 if (choice == null) {
-                    // TODO: print error. While loop will go back and reprompt.
+                    // Print error. While loop will go back and reprompt.
+                    System.out.println(invalidChoiceMsg());
                 } else {
                     break;
                 }

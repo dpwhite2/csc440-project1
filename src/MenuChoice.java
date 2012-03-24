@@ -1,13 +1,18 @@
 
 
 public class MenuChoice {
-    public char shortcut;
+    public String shortcut;
     public String description;
+    
+    public MenuChoice(String shortcut, String description) {
+        this.shortcut = shortcut;
+        this.description = description;
+    }
     
     public boolean equals(Object obj) {
         if (obj instanceof MenuChoice) {
             MenuChoice c = (MenuChoice) obj;
-            if (this.shortcut == c.shortcut && 
+            if (this.shortcut.equals(c.shortcut) &&
                 this.description.equals(c.description))
             {
                 return true;
