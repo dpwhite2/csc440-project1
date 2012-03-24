@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/tcsh
 
 setenv CLASSPATH src:.:/afs/bp.ncsu.edu/dist/oracle10g/.install/i386_linux26/OraHome1/jdbc/lib/ojdbc14_g.jar
 java edu.ncsu.csc.csc440.project1.Project1

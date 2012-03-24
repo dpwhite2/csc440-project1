@@ -32,7 +32,7 @@ public class ProfessorMenu extends Menu{
 	/* (non-Javadoc)
 	 * @see Menu#onChoice(MenuChoice)
 	 */
-	public boolean onChoice(MenuChoice choice) {
+	public boolean onChoice(MenuChoice choice) throws Exception {
 		// TODO finish
 		
 		if(choice.equals(menuChoices[0])){

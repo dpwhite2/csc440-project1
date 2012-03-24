@@ -1,9 +1,9 @@
 
 CREATE TABLE UserInfo (
     userid INTEGER,
-    username CHAR(128) NOT NULL,
-    password CHAR(128) NOT NULL,
-    role CHAR(32) NOT NULL,
+    username VARCHAR2(128) NOT NULL,
+    password VARCHAR2(128) NOT NULL,
+    role VARCHAR2(32) NOT NULL,
     PRIMARY KEY (username),
     CONSTRAINT userinfo_role_enum CHECK (role IN ('prof','student'))
 );
@@ -11,7 +11,7 @@ CREATE TABLE UserInfo (
 CREATE SEQUENCE userinfo_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Student (
-    sid CHAR(64) NOT NULL,
+    sid VARCHAR2(64) NOT NULL,
     PRIMARY KEY (sid)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE Topic (
 CREATE SEQUENCE topic_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Course (
-    cid CHAR(32) NOT NULL,
+    cid VARCHAR2(32) NOT NULL,
     cname VARCHAR2(1000),
     startdate TIMESTAMP,
     enddate TIMESTAMP,
@@ -48,15 +48,15 @@ CREATE TABLE Course (
 );
 
 CREATE TABLE Enrolled (
-    cid CHAR(32),
-    sid CHAR(64),
+    cid VARCHAR2(32),
+    sid VARCHAR2(64),
     PRIMARY KEY (cid, sid),
     FOREIGN KEY (cid) REFERENCES Course,
     FOREIGN KEY (sid) REFERENCES Student
 );
 
 CREATE TABLE Assisting (
-    cid CHAR(32),
+    cid VARCHAR2(32),
     taid INTEGER,
     PRIMARY KEY (cid, taid),
     FOREIGN KEY (cid) REFERENCES Course,
@@ -64,7 +64,7 @@ CREATE TABLE Assisting (
 );
 
 CREATE TABLE TopicPerCourse (
-    cid CHAR(32),
+    cid VARCHAR2(32),
     tid INTEGER,
     PRIMARY KEY (cid, tid),
     FOREIGN KEY (cid) REFERENCES Course,
@@ -78,14 +78,14 @@ CREATE TABLE Exercise (
     correct_points  INTEGER     NOT NULL,
     penalty_points  INTEGER     NOT NULL,
     seed            INTEGER     NOT NULL,
-    score_method    CHAR(30)    NOT NULL,
+    score_method    VARCHAR2(30)    NOT NULL,
     PRIMARY KEY (eid)
 );
 
 CREATE SEQUENCE exercise_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Question (
-    qname           CHAR(64)        NOT NULL,
+    qname           VARCHAR2(64)        NOT NULL,
     text            VARCHAR2(1000)  NOT NULL,
     difficulty      INTEGER         NOT NULL,
     hint            VARCHAR2(1000)  DEFAULT ''  NOT NULL,
@@ -97,14 +97,14 @@ CREATE TABLE Question (
 
 CREATE TABLE ExerciseQuestion (
     eid             INTEGER         NOT NULL,
-    qname           CHAR(64)        NOT NULL,
+    qname           VARCHAR2(64)        NOT NULL,
     PRIMARY KEY (eid, qname),
     FOREIGN KEY (eid) REFERENCES Exercise,
     FOREIGN KEY (qname) REFERENCES Question
 );
 
 CREATE TABLE Answer (
-    qname           CHAR(64)        NOT NULL,
+    qname           VARCHAR2(64)        NOT NULL,
     ansid           INTEGER         NOT NULL,
     text            VARCHAR2(1000)  NOT NULL,
     correct         INTEGER         NOT NULL,
@@ -118,7 +118,7 @@ CREATE SEQUENCE answer_ids START WITH 1 INCREMENT BY 1;
 CREATE TABLE Attempt (
     attid           INTEGER         NOT NULL,
     eid             INTEGER         NOT NULL,
-    sid             CHAR(64)        NOT NULL,
+    sid             VARCHAR2(64)        NOT NULL,
     attnum          INTEGER         NOT NULL,
     /* starttime TIMESTAMP, */
     submittime      TIMESTAMP, /* if this is NULL, attempt has not been submitted */
@@ -133,7 +133,7 @@ CREATE SEQUENCE attempt_ids START WITH 1 INCREMENT BY 1;
 CREATE TABLE AttemptQuestion (
     attid           INTEGER         NOT NULL,
     qposition       INTEGER         NOT NULL,
-    qname           CHAR(64)        NOT NULL,
+    qname           VARCHAR2(64)        NOT NULL,
     chosen_answer_pos   INTEGER,  /* if this is NULL, no answer has been given yet */
     justification   VARCHAR2(1000)   DEFAULT ''   NOT NULL,
     PRIMARY KEY (attid, qposition),

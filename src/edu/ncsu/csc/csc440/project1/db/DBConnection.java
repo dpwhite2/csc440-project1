@@ -36,9 +36,9 @@ public class DBConnection {
         s_password = prop.getProperty("app.db.password");
         s_url = prop.getProperty("app.db.url");
         
-        System.out.printf("s_username: %s\n", s_username);
-        System.out.printf("s_password: %s\n", s_password);
-        System.out.printf("s_url:      %s\n", s_url);
+        //System.out.printf("s_username: %s\n", s_username);
+        //System.out.printf("s_password: %s\n", s_password);
+        //System.out.printf("s_url:      %s\n", s_url);
     }
     
     public static Connection getConnection() throws Exception {
