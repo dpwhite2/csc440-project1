@@ -1,0 +1,11 @@
+# INSTRUCTIONS:
+# Do not modify this file. Create a copy and modify the copy only!
+#
+# Copy this file and rename the copy:  app.config
+# Set the values for your configuration.
+#
+
+app.db.username=DB_USERNAME
+app.db.password=DB_PASSWORD
+app.db.url=DB_URL
+

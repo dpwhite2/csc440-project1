@@ -1,3 +1,4 @@
+package edu.ncsu.csc.csc440.project1.menu;
 
 public class StartMenu extends Menu {
     public MenuChoice[] getChoices() {

@@ -1,4 +1,4 @@
-
+package edu.ncsu.csc.csc440.project1.menu;
 
 public class MenuChoice {
     public String shortcut;
