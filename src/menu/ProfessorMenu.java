@@ -36,7 +36,8 @@ public class ProfessorMenu extends Menu{
 		// TODO finish
 		
 		if(choice.equals(menuChoices[0])){
-			//make ProfSelectCourseMenu
+			ProfSelectCourseMenu menu1 = new ProfSelectCourseMenu();
+			menu1.menuLoop();
 		}
 		else if(choice.equals(menuChoices[1])){
 			//make ProfAddCourseMenu
