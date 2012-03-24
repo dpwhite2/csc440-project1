@@ -5,11 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.FileNotFoundException;
 import java.util.Properties;
 
 public class DBConnection {
     
-    private static final String filename = "";
+    private static final String filename = "app.config";
     private static boolean s_loaded = false;
     private static String s_username = null;
     private static String s_password = null;
@@ -25,13 +26,22 @@ public class DBConnection {
         if (!s_loaded) {
             // Load the connection config from the properties file.
             Properties prop = new Properties();
-            InputStream is = new FileInputStream(filename);
+            InputStream is = null;
+            try {
+                is = new FileInputStream(filename);
+            } catch (FileNotFoundException e) {
+                throw e;
+            }
             prop.load(is);
             
             s_username = prop.getProperty("app.db.username");
             s_password = prop.getProperty("app.db.password");
             s_url = prop.getProperty("app.db.url");
             s_loaded = true;
+            
+            System.out.printf("s_username: %s\n", s_username);
+            System.out.printf("s_password: %s\n", s_password);
+            System.out.printf("s_url:      %s\n", s_url);
         }
     }
     

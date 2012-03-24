@@ -1,7 +1,7 @@
 
 JCLASSPATH = $(CURDIR)/src
 JPROJECT1PATH = $(JCLASSPATH)/edu/ncsu/csc/csc440/project1
-JFLAGS = -g -cp $(JCLASSPATH)
+JFLAGS = -g -cp $(JCLASSPATH):$(CLASSPATH)
 JC = javac
 
 .SUFFIXES: .java .class
