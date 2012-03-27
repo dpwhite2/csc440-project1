@@ -4,27 +4,34 @@ CREATE TABLE UserInfo (
     username VARCHAR2(128) NOT NULL,
     password VARCHAR2(128) NOT NULL,
     role VARCHAR2(32) NOT NULL,
-    PRIMARY KEY (username),
-    CONSTRAINT userinfo_role_enum CHECK (role IN ('prof','student'))
+    PRIMARY KEY (userid),
+    CONSTRAINT userinfo_role_enum CHECK (role IN ('prof','student')),
+    UNIQUE (username)
 );
 
 CREATE SEQUENCE userinfo_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Student (
     sid VARCHAR2(64) NOT NULL,
-    PRIMARY KEY (sid)
+    userid INTEGER,
+    PRIMARY KEY (sid),
+    FOREIGN KEY (userid) REFERENCES UserInfo
 );
 
 CREATE TABLE Professor (
     pid INTEGER,
-    PRIMARY KEY (pid)
+    userid INTEGER,
+    PRIMARY KEY (pid),
+    FOREIGN KEY (userid) REFERENCES UserInfo
 );
 
 CREATE SEQUENCE professor_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE TA (
     taid INTEGER,
-    PRIMARY KEY (taid)
+    userid INTEGER,
+    PRIMARY KEY (taid),
+    FOREIGN KEY (userid) REFERENCES UserInfo
 );
 
 CREATE SEQUENCE ta_ids START WITH 1 INCREMENT BY 1;
