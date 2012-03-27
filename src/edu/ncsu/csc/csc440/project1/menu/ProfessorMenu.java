@@ -47,6 +47,7 @@ public class ProfessorMenu extends Menu{
 		else{
 			throw new RuntimeException("ProcessorMenu.onChoice() couldn't match choices");
 		}
+		this.menuLoop();
 		return false;
 	}
 
