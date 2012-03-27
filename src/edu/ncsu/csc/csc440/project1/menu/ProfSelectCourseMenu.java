@@ -33,15 +33,15 @@ public class ProfSelectCourseMenu extends Menu {
 	 */
 	public MenuChoice[] getChoices() {
 	
-		int count = menuChoices.length;
 		try{
 		//find all courses this Professor teaches
 		Connection conn = DBConnection.getConnection();
 		//get number of course he/she teaches
+		System.out.println("---PID is: "+ this.pid);
 		PreparedStatement stmt1 = conn.prepareStatement("SELECT COUNT(*) FROM Course WHERE pid=?");
 		stmt1.setInt(1, this.pid);
         ResultSet rs = stmt1.executeQuery();
-        menuChoices = new MenuChoice[rs.getInt("COUNT(*)")];
+        if(rs.next()) menuChoices = new MenuChoice[rs.getInt("COUNT(*)")];
         System.out.println("You teach "+menuChoices.length+" courses.");
         
         //Get list of course names
@@ -58,7 +58,7 @@ public class ProfSelectCourseMenu extends Menu {
         
 		}
 		catch(Exception e){
-			System.out.println("Problem in getting choices for ProfSelectCourseMenu: "+ e.getMessage());
+			System.out.println("Problem in creating choices for ProfSelectCourseMenu: "+ e.getMessage());
 		}
 		
 		return menuChoices;
