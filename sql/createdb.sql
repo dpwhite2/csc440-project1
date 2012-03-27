@@ -46,9 +46,10 @@ CREATE SEQUENCE topic_ids START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Course (
     cid VARCHAR2(32) NOT NULL,
+    token VARCHAR2(32) NOT NULL,
     cname VARCHAR2(1000),
-    startdate TIMESTAMP,
-    enddate TIMESTAMP,
+    startdate DATE,
+    enddate DATE,
     pid INTEGER,
     PRIMARY KEY (cid),
     FOREIGN KEY (pid) REFERENCES Professor
@@ -80,8 +81,8 @@ CREATE TABLE TopicPerCourse (
 
 CREATE TABLE Exercise (
     eid             INTEGER     NOT NULL,
-    startdate       TIMESTAMP   NOT NULL,
-    enddate         TIMESTAMP   NOT NULL,
+    startdate       DATE   NOT NULL,
+    enddate         DATE   NOT NULL,
     correct_points  INTEGER     NOT NULL,
     penalty_points  INTEGER     NOT NULL,
     seed            INTEGER     NOT NULL,
@@ -127,8 +128,8 @@ CREATE TABLE Attempt (
     eid             INTEGER         NOT NULL,
     sid             VARCHAR2(64)        NOT NULL,
     attnum          INTEGER         NOT NULL,
-    /* starttime TIMESTAMP, */
-    submittime      TIMESTAMP, /* if this is NULL, attempt has not been submitted */
+    /* starttime DATE, */
+    submittime      DATE, /* if this is NULL, attempt has not been submitted */
     PRIMARY KEY (attid),
     UNIQUE (eid, sid, attnum),
     FOREIGN KEY (eid) REFERENCES Exercise,

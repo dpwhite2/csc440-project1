@@ -105,7 +105,7 @@ public abstract class Menu {
      * Get an array of all choices for this menu.  This is called each time the 
      * menu is displayed, so it can change dynamically.
      */
-    public abstract MenuChoice[] getChoices();
+    public abstract MenuChoice[] getChoices() throws Exception;
     
     /**
      * Called when a menu choice is made. Only valid choices are passed to this method.
