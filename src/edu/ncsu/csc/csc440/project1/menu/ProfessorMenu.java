@@ -12,10 +12,13 @@ public class ProfessorMenu extends Menu{
 
 	private String promptText; //might not need this?
 	private MenuChoice[] menuChoices;
+	private int pid;
 	
-	/* (non-Javadoc)
-	 * @see Menu#getChoices()
-	 */
+	public ProfessorMenu(int id){
+		this.pid = id;
+	}
+	
+	
 	public MenuChoice[] getChoices() {
 		
 		MenuChoice selectCourse = new MenuChoice("S", "Select Course");
@@ -33,17 +36,16 @@ public class ProfessorMenu extends Menu{
 	 * @see Menu#onChoice(MenuChoice)
 	 */
 	public boolean onChoice(MenuChoice choice) throws Exception {
-		// TODO finish
-		
-		if(choice.equals(menuChoices[0])){
-			ProfSelectCourseMenu menu1 = new ProfSelectCourseMenu();
+			
+		if(choice.shortcut.equals("S")){
+			ProfSelectCourseMenu menu1 = new ProfSelectCourseMenu(this.pid);
 			menu1.menuLoop();
 		}
-		else if(choice.equals(menuChoices[1])){
+		else if(choice.shortcut.equals("A")){
 			ProfAddCourseMenu menu2 = new ProfAddCourseMenu();
 			while(!menu2.run()); //run until it returns true
 		}
-		else if(choice.equals(menuChoices[2])){
+		else if(choice.shortcut.equals("X")){
 			return false;
 		}
 		else{
