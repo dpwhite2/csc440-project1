@@ -20,12 +20,12 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
  */
 public class ProfSelectCourseMenu extends Menu {
 	
-	int pid;
+	private int pid;
 	private String promptText; //might not need this?
 	private MenuChoice[] menuChoices;
 	
 	public ProfSelectCourseMenu(int id){
-		pid = id;
+		this.pid = id;
 	}
 	
 	/* (non-Javadoc)
@@ -45,12 +45,12 @@ public class ProfSelectCourseMenu extends Menu {
         System.out.println("You teach "+menuChoices.length+" courses.");
         
         //Get list of course names
-		PreparedStatement stmt2 = conn.prepareStatement("SELECT cid, cname FROM Course WHERE pid=?");
+		PreparedStatement stmt2 = conn.prepareStatement("SELECT token, cname FROM Course WHERE pid=?");
         stmt2.setInt(1, this.pid);
         rs = stmt2.executeQuery();
         int i = 0;
         while (rs.next()) {
-        	String courseID = rs.getString("cid");
+        	String courseID = rs.getString("token");
             String courseName = rs.getString("cname");
             menuChoices[i]= new MenuChoice(courseID, courseName);
             i++;
@@ -67,12 +67,12 @@ public class ProfSelectCourseMenu extends Menu {
 	/* (non-Javadoc)
 	 * @see Menu#onChoice(MenuChoice)
 	 */
-	public boolean onChoice(MenuChoice choice) {
-		// TODO finish
+	public boolean onChoice(MenuChoice choice) throws Exception {
 		
 		for(int i =0; i< menuChoices.length;i++){
-			if(choice.equals(menuChoices[i])){
-				//make new ProfCourseMenu and pass it the cid from cid[i]
+			if(choice.shortcut.equals(menuChoices[i].shortcut)){
+				ProfCourseMenu menu = new ProfCourseMenu(this.pid,choice.shortcut);
+				menu.menuLoop();
 				break;
 			}
 		}

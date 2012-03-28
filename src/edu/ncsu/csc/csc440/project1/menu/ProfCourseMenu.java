@@ -13,6 +13,14 @@ public class ProfCourseMenu extends Menu{
 			new MenuChoice("E", "Edit homework"), new MenuChoice("Q", "Add question"),
 			new MenuChoice("N", "Add answer"), new MenuChoice("R", "Reports"),
 			new MenuChoice("X", "Back")};;
+			
+	private String cid;
+	private int pid;
+	
+	public ProfCourseMenu(int profID,String courseToken){
+		this.cid = courseToken;
+		this.pid = profID;
+	}
 	
 	/* (non-Javadoc)
 	 * @see Menu#getChoices()
