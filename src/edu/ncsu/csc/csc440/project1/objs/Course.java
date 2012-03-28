@@ -30,6 +30,7 @@ public class Course {
     }
     
     public String getCid() { return cid; }
+    public String getToken() { return token; }
     public String getCname() { return cname; }
     public Date getStartDate() { return startDate; }
     public Date getEndDate() { return endDate; }
