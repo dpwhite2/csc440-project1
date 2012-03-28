@@ -14,11 +14,11 @@ public class ProfCourseMenu extends Menu{
 			new MenuChoice("N", "Add answer"), new MenuChoice("R", "Reports"),
 			new MenuChoice("X", "Back")};;
 			
-	private String cid;
+	private String cToken;
 	private int pid;
 	
 	public ProfCourseMenu(int profID,String courseToken){
-		this.cid = courseToken;
+		this.cToken = courseToken;
 		this.pid = profID;
 	}
 	
@@ -34,7 +34,8 @@ public class ProfCourseMenu extends Menu{
 	public boolean onChoice(MenuChoice choice) {
 		// TODO finish
 		if(choice.shortcut.equals("A")){
-			//make ProfAddHomework obj
+			ProfAddHomework addMenu = new ProfAddHomework(this.pid,this.cToken);
+			while(!addMenu.run());
 		}
 		else if(choice.shortcut.equals("E")){
 			//ProfSelectHomeworkMenu

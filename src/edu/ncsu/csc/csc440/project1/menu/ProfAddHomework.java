@@ -17,7 +17,7 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
 public class ProfAddHomework{
 	
 	private int pid;
-	private int cid;
+	private String cid;
 	private String prompt = "Please enter data for new homework with the following fields:\n" +
 			"<name of homework> <start date> <end date> <number of attempts allowed>\n" +
 			"<score selection scheme> <points for correct answer> <points deducted for incorrect answer>";
@@ -26,9 +26,9 @@ public class ProfAddHomework{
 	    LATEST_ATTEMPT, MAXIMUM_SCORE, AVERAGE_SCORE 
 	}
 	
-	public ProfAddHomework(int profID, int courseID){
+	public ProfAddHomework(int profID, String courseToken){
 		this.pid = profID;
-		this.cid = courseID;
+		this.cid = courseToken;
 	}
 	
 	public boolean run(){
@@ -40,7 +40,7 @@ public class ProfAddHomework{
 			String ename = scan.next();
 			String start = scan.next();
 			String end = scan.next();
-			int allowedAttemps = scan.nextInt();
+			int allowedAttempts = scan.nextInt();
 			String scoreScheme = scan.next();
 			int correctPts = scan.nextInt();
 			int incorrectPts = scan.nextInt();
@@ -61,7 +61,7 @@ public class ProfAddHomework{
 			
 			//how do we get next eid?
 			String query = "INSERT INTO Exercise VALUES ('"+ename+"', timestamp'" +
-					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"')";
+					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+")";
 			System.out. println(query);
 			int success = 0;
 			try{
