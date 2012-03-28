@@ -1,12 +1,12 @@
 
-DELETE Attempt;
-DELETE AttemptQuestion;
 DELETE AttemptAnswer;
+DELETE AttemptQuestion;
+DELETE Attempt;
 
-DELETE Exercise;
-DELETE Question;
 DELETE ExerciseQuestion;
+DELETE Exercise;
 DELETE Answer;
+DELETE Question;
 
 DELETE Enrolled;
 DELETE Assisting;

@@ -52,6 +52,7 @@ CREATE TABLE Course (
     enddate DATE                NOT NULL,
     pid INTEGER                 NOT NULL,
     PRIMARY KEY (cid),
+    UNIQUE (token),
     FOREIGN KEY (pid) REFERENCES Professor
 );
 
@@ -82,7 +83,7 @@ CREATE TABLE TopicPerCourse (
 CREATE TABLE Exercise (
     eid                 INTEGER                     NOT NULL,
     cid                 VARCHAR2(32)                NOT NULL,
-    ename               VARCHAR2(1000)              NOT NULL,
+    ename               VARCHAR2(1000)  DEFAULT '',
     startdate           DATE                        NOT NULL,
     enddate             DATE                        NOT NULL,
     correct_points      INTEGER                     NOT NULL,
@@ -99,10 +100,10 @@ CREATE TABLE Question (
     qname           VARCHAR2(64)                NOT NULL,
     text            VARCHAR2(1000)              NOT NULL,
     difficulty      INTEGER                     NOT NULL,
-    hint            VARCHAR2(1000)  DEFAULT ''  NOT NULL,
+    hint            VARCHAR2(1000)  DEFAULT '',
     correct_points  INTEGER                     NOT NULL,
     penalty_points  INTEGER                     NOT NULL,
-    explanation     VARCHAR2(1000)  DEFAULT ''  NOT NULL,
+    explanation     VARCHAR2(1000)  DEFAULT '',
     PRIMARY KEY (qname)
 );
 
@@ -119,9 +120,11 @@ CREATE TABLE Answer (
     ansid           INTEGER                     NOT NULL,
     text            VARCHAR2(1000)              NOT NULL,
     correct         INTEGER                     NOT NULL,
-    explanation     VARCHAR2(1000)  DEFAULT ''  NOT NULL,
+    explanation     VARCHAR2(1000)  DEFAULT '',
+    hint            VARCHAR2(1000)  DEFAULT '',
     PRIMARY KEY(ansid),
-    FOREIGN KEY (qname) REFERENCES Question
+    FOREIGN KEY (qname) REFERENCES Question,
+    CONSTRAINT answer_correct_bool CHECK (correct IN (0, 1))
 );
 
 CREATE SEQUENCE answer_ids START WITH 1000 INCREMENT BY 1;
@@ -131,7 +134,6 @@ CREATE TABLE Attempt (
     eid             INTEGER         NOT NULL,
     sid             VARCHAR2(64)    NOT NULL,
     attnum          INTEGER         NOT NULL,
-    /* starttime DATE, */
     submittime      DATE, /* if this is NULL, attempt has not been submitted */
     PRIMARY KEY (attid),
     UNIQUE (eid, sid, attnum),
@@ -146,7 +148,7 @@ CREATE TABLE AttemptQuestion (
     qposition       INTEGER                         NOT NULL,
     qname           VARCHAR2(64)                    NOT NULL,
     chosen_answer_pos   INTEGER,  /* if this is NULL, no answer has been given yet */
-    justification   VARCHAR2(1000)      DEFAULT ''  NOT NULL,
+    justification   VARCHAR2(1000)      DEFAULT '',
     PRIMARY KEY (attid, qposition),
     FOREIGN KEY (attid) REFERENCES Attempt,
     FOREIGN KEY (qname) REFERENCES Question
@@ -162,9 +164,9 @@ CREATE TABLE AttemptAnswer (
     FOREIGN KEY (ansid) REFERENCES Answer
 );
 
-ALTER TABLE AttemptQuestion
+/* ALTER TABLE AttemptQuestion
     ADD CONSTRAINT fk_attemptans 
         FOREIGN KEY (attid, qposition, chosen_answer_pos) REFERENCES AttemptAnswer;
-
+*/
 EXIT;
 
