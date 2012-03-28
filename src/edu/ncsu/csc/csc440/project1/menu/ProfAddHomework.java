@@ -35,7 +35,7 @@ public class ProfAddHomework{
 		//TODO finish
 		String answer = promptUser(prompt);
 		
-		
+		try{
 			Scanner scan = new Scanner(answer);
 			String ename = scan.next();
 			String start = scan.next();
@@ -59,6 +59,7 @@ public class ProfAddHomework{
 			//match scoring scheme
 			//ScoreScheme scheme = matchScheme(scoreScheme);
 			
+			// TODO write correct INSERT
 			//how do we get next eid?
 			String query = "INSERT INTO Exercise VALUES ('"+ename+"', timestamp'" +
 					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+")";
@@ -85,6 +86,10 @@ public class ProfAddHomework{
 				System.out.println("Sorry, we could not add this exercise, please try again.");
 				return false;
 			}
+		}
+		catch(RuntimeException e){
+			throw new RuntimeException("Probem reading user input for new course: " + e.getMessage());
+		}
 	}
 	
 	public ScoreScheme matchScheme(String s){

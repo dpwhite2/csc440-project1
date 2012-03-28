@@ -41,8 +41,8 @@ public class ProfSelectCourseMenu extends Menu {
 		PreparedStatement stmt1 = conn.prepareStatement("SELECT COUNT(*) FROM Course WHERE pid=?");
 		stmt1.setInt(1, this.pid);
         ResultSet rs = stmt1.executeQuery();
-        if(rs.next()) menuChoices = new MenuChoice[rs.getInt("COUNT(*)")];
-        System.out.println("You teach "+menuChoices.length+" courses.");
+        if(rs.next()) menuChoices = new MenuChoice[rs.getInt("COUNT(*)")+1];
+        System.out.println("You teach "+(menuChoices.length-1)+" courses.");
         
         //Get list of course names
 		PreparedStatement stmt2 = conn.prepareStatement("SELECT token, cname FROM Course WHERE pid=?");
@@ -55,7 +55,7 @@ public class ProfSelectCourseMenu extends Menu {
             menuChoices[i]= new MenuChoice(courseID, courseName);
             i++;
         }
-        
+        menuChoices[i]= new MenuChoice("X", "Back");
 		}
 		catch(Exception e){
 			System.out.println("Problem in creating choices for ProfSelectCourseMenu: "+ e.getMessage());
@@ -68,15 +68,16 @@ public class ProfSelectCourseMenu extends Menu {
 	 * @see Menu#onChoice(MenuChoice)
 	 */
 	public boolean onChoice(MenuChoice choice) throws Exception {
-		
-		for(int i =0; i< menuChoices.length;i++){
-			if(choice.shortcut.equals(menuChoices[i].shortcut)){
-				ProfCourseMenu menu = new ProfCourseMenu(this.pid,choice.shortcut);
-				menu.menuLoop();
-				break;
+		if(choice.shortcut.equals("X")) return false;
+		else{
+			for(int i =0; i< menuChoices.length;i++){
+				if(choice.shortcut.equals(menuChoices[i].shortcut)){
+					ProfCourseMenu menu = new ProfCourseMenu(this.pid,choice.shortcut);
+					menu.menuLoop();
+					break;
+				}
 			}
 		}
-	
 		return false;
 	}
 }

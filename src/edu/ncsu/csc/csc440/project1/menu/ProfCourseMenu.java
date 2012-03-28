@@ -31,14 +31,15 @@ public class ProfCourseMenu extends Menu{
 	}
 
 	
-	public boolean onChoice(MenuChoice choice) {
+	public boolean onChoice(MenuChoice choice) throws Exception{
 		// TODO finish
 		if(choice.shortcut.equals("A")){
 			ProfAddHomework addMenu = new ProfAddHomework(this.pid,this.cToken);
 			while(!addMenu.run());
 		}
 		else if(choice.shortcut.equals("E")){
-			//ProfSelectHomeworkMenu
+			ProfSelectHomeworkMenu selectMenu = new ProfSelectHomeworkMenu(this.pid, this.cToken);
+			selectMenu.menuLoop();
 		}
 		else if(choice.shortcut.equals("Q")){
 			//ProfSelectQuestionTopicMenu
@@ -49,7 +50,7 @@ public class ProfCourseMenu extends Menu{
 		else if(choice.shortcut.equals("R")){
 			//ProfReportsMenu
 		}
-		else if(choice.equals("X")){
+		else if(choice.shortcut.equals("X")){
 			return false;
 		}
 		else{
