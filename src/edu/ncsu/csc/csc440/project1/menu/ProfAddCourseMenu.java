@@ -17,8 +17,13 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
  */
 public class ProfAddCourseMenu{
 	
-	private String promptText = "Please enter new course information in this order: <id> <coursename> <startdate> <enddate> <your_prof_id> \n All dates should be in the format mm/dd/yyyy\n";
+	private String promptText = "Please enter new course information in this order: <id> <coursename> <startdate> <enddate> \n All dates should be in the format mm/dd/yyyy\n";
+	private int pid;
 	
+	public ProfAddCourseMenu(int id){
+		
+		this.pid = id;
+	}
 	public boolean run(){
 			String answer = promptUser(promptText);
 			
@@ -28,7 +33,6 @@ public class ProfAddCourseMenu{
 				String cname = scan.next();
 				String start = scan.next();
 				String end = scan.next();
-				String profid = scan.next();
 
 				//convert start & end into oracle TIMESTAMP format
 				scan = new Scanner(start).useDelimiter("/");
@@ -45,7 +49,7 @@ public class ProfAddCourseMenu{
 
 				String endTimestamp = yyyy+"-"+mm+"-"+dd+" 00:00:00.0";
 
-				String query = "INSERT INTO Course VALUES ('"+cid+"', '"+cname+"', timestamp'"+startTimestamp+"', timestamp'"+endTimestamp+"', "+profid+")";
+				String query = "INSERT INTO Course VALUES ('"+cid+"', '"+cname+"', timestamp'"+startTimestamp+"', timestamp'"+endTimestamp+"', "+this.pid+")";
 				System.out. println(query);
 				int success = 0;
 				

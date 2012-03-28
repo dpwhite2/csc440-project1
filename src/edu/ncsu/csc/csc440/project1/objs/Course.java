@@ -11,14 +11,14 @@ public class Course {
     private int pid;
     
     public Course() {
-        cid = -1;
+        cid = "";
         cname = "";
         startDate = new Date();
         endDate = new Date();
         pid = -1;
     }
     
-    public Course(int cid, String cname, Date startDate, Date endDate, int pid) {
+    public Course(String cid, String cname, Date startDate, Date endDate, int pid) {
         this.cid = cid;
         this.cname = cname;
         this.startDate = startDate;
@@ -26,7 +26,7 @@ public class Course {
         this.pid = pid;
     }
     
-    public int getCid() { return cid; }
+    public String getCid() { return cid; }
     public String getCname() { return cname; }
     public Date getStartDate() { return startDate; }
     public Date getEndDate() { return endDate; }
