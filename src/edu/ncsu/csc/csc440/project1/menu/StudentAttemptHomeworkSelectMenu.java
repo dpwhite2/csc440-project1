@@ -89,14 +89,45 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	    choices[exercises.size()] = new MenuChoice("X", "Back");
 		return choices;
 	}
+	
+	private int getOpenAttemptId(int eid) throws Exception {
+	    String query = "SELECT A.attid FROM Attempt A WHERE A.submittime=NULL AND A.eid=?";
+	    Connection conn = null;
+	    try {
+	        conn = DBConnection.getConnection();
+	        PreparedStatement stmt = conn.prepareStatement(query);
+	        stmt.setInt(1, eid);
+	        ResultSet rs = stmt.executeQuery();
+	        if (!rs.next()) {
+	            return -1;
+	        } else {
+	            return rs.getInt("attid");
+	        }
+	    } finally {
+	        conn.close();
+	    }
+	}
 
 	@Override
-	public boolean onChoice(MenuChoice choice) throws Exception {
-		if (choice.shortcut.equals("X")) {
+	public boolean onChoice(MenuChoice choice_) throws Exception {
+		if (choice_.shortcut.equals("X")) {
 			return false;
+		// TODO:
+		// if choice == exercise without an open attempt, create attempt & get attempt id
+		// if choice == exercise with open attempt, get attempt id
 		} else {
-			throw new RuntimeException("Should not get here.");
-		}
+		    // assume choice refers to valid exercise
+		    ExerciseMenuChoice choice = (ExerciseMenuChoice)choice_;
+		    int eid = choice.eid;
+		    int attid = getOpenAttemptId(eid);
+		    if (attid == -1) {
+		        // no attempt exists, so create new attempt
+		        // TODO:
+		    }
+		    StudentAttemptHomeworkMenu menu = new StudentAttemptHomeworkMenu(sid, cid, attid);
+		    menu.menuLoop();
+		    return true;
+		} 
 	}
 
 }

@@ -32,6 +32,24 @@ INSERT INTO Topic VALUES (7, 'Processes and Threads');
 INSERT INTO Topic VALUES (8, 'Memory Organization');
 INSERT INTO Topic VALUES (9, 'Deadlocks and other topics');
 
-INSERT INTO Course VALUES('CSC440', 'CSC440SPR12', 'Database Systems', '01-JAN-2012', '10-MAY-2012', 1);
+INSERT INTO Course VALUES ('CSC440', 'CSC440SPR12', 'Database Systems', '01-JAN-2012', '10-MAY-2012', 1);
+INSERT INTO Course VALUES ('CSC541', 'CSC541FLL11', 'Advanced Data Structures', '01-AUG-2011', '15-DEC-2011', 2);
+INSERT INTO Course VALUES ('CSC501', 'CSC501SPR12', 'Operating Systems', '01-JAN-2012', '10-MAY-2012', 3);
+
+INSERT INTO TopicPerCourse VALUES ('CSC440', 1);
+INSERT INTO TopicPerCourse VALUES ('CSC440', 2);
+INSERT INTO TopicPerCourse VALUES ('CSC440', 3);
+INSERT INTO TopicPerCourse VALUES ('CSC541', 4);
+INSERT INTO TopicPerCourse VALUES ('CSC541', 5);
+INSERT INTO TopicPerCourse VALUES ('CSC541', 6);
+INSERT INTO TopicPerCourse VALUES ('CSC501', 7);
+INSERT INTO TopicPerCourse VALUES ('CSC501', 8);
+INSERT INTO TopicPerCourse VALUES ('CSC501', 9);
+
+INSERT INTO Enrolled VALUES ('CSC440', 1);
+INSERT INTO Enrolled VALUES ('CSC440', 2);
+INSERT INTO Enrolled VALUES ('CSC440', 3);
+INSERT INTO Enrolled VALUES ('CSC440', 4);
+INSERT INTO Enrolled VALUES ('CSC501', 3);
 
 EXIT;
