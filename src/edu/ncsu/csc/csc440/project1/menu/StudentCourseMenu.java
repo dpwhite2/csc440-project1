@@ -17,6 +17,9 @@ public class StudentCourseMenu extends Menu {
 
     public MenuChoice[] getChoices() {
         MenuChoice[] choices = {
+            new MenuChoice("S", "View Scores"),
+            new MenuChoice("H", "Attempt Homework"),
+            new MenuChoice("P", "View Past Submissions"),
             new MenuChoice("X", "Back")
         };
 		return choices;
@@ -25,8 +28,21 @@ public class StudentCourseMenu extends Menu {
     public boolean onChoice(MenuChoice choice) throws Exception {
 		if (choice.shortcut.equals("X")){
 			return false;
+		} else if (choice.shortcut.equals("S")) {
+		    StudentViewScoresMenu menu = new StudentViewScoresMenu(sid, cid);
+			menu.menuLoop();
+		    return true;
+		} else if (choice.shortcut.equals("H")) {
+			StudentAttemptHomeworkSelectMenu menu = new StudentAttemptHomeworkSelectMenu(sid, cid);
+			menu.menuLoop();
+			return true;
+		} else if (choice.shortcut.equals("P")) {
+			StudentViewPastSubmissionsMenu menu = new StudentViewPastSubmissionsMenu(sid, cid);
+			menu.menuLoop();
+			return true;
+		} else {
+			throw new RuntimeException("Should not get here.");
 		}
-        return true;
 	}
     
 }
