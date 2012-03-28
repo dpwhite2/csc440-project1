@@ -13,6 +13,11 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	@Override
 	public MenuChoice[] getChoices() throws Exception {
 		// Show all open homeworks.
+		// That is, all homeworks that meet the following conditions:
+		//		startDate <= now <= endDate
+		//		( (count(started attempts) < maximum attempts AND count(not completed) == 0)
+		//			OR...
+		//		 (not completed) )
 		MenuChoice[] choices = {
 			new MenuChoice("X", "Back")
 		};
