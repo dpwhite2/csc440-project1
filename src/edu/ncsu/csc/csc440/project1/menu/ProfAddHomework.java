@@ -4,6 +4,8 @@
 package edu.ncsu.csc.csc440.project1.menu;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Scanner;
@@ -17,21 +19,21 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
 public class ProfAddHomework{
 	
 	private int pid;
-	private String cid;
+	private String cToken;
 	private String prompt = "Please enter data for new homework with the following fields:\n" +
 			"<name of homework> <start date> <end date> <number of attempts allowed>\n" +
 			"<score selection scheme> <points for correct answer> <points deducted for incorrect answer>";
 	
-	public enum ScoreScheme{
+	/*public enum ScoreScheme{
 	    LATEST_ATTEMPT, MAXIMUM_SCORE, AVERAGE_SCORE 
-	}
+	}*/
 	
 	public ProfAddHomework(int profID, String courseToken){
 		this.pid = profID;
-		this.cid = courseToken;
+		this.cToken = courseToken;
 	}
 	
-	public boolean run(){
+	public boolean run() throws Exception{
 		//TODO finish
 		String answer = promptUser(prompt);
 		
@@ -59,9 +61,10 @@ public class ProfAddHomework{
 			//match scoring scheme
 			//ScoreScheme scheme = matchScheme(scoreScheme);
 			
+			
+			String cid = findCID(this.cToken);
 			// TODO write correct INSERT
-			//how do we get next eid?
-			String query = "INSERT INTO Exercise VALUES ('"+ename+"', timestamp'" +
+			String query = "INSERT INTO Exercise VALUES (exercise_ids.nextval, '"+cid+"', '"+ename+"', timestamp'" +
 					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+")";
 			System.out. println(query);
 			int success = 0;
@@ -69,6 +72,7 @@ public class ProfAddHomework{
 
 				Connection conn = DBConnection.getConnection();
 				Statement stmt = conn.createStatement();
+				//add homework
 				success = stmt.executeUpdate(query);
 
 			}
@@ -91,7 +95,7 @@ public class ProfAddHomework{
 			throw new RuntimeException("Probem reading user input for new course: " + e.getMessage());
 		}
 	}
-	
+	/*
 	public ScoreScheme matchScheme(String s){
 		s = s.toLowerCase();
 		if(s.equals("latest attempt")){
@@ -108,6 +112,8 @@ public class ProfAddHomework{
 		}
 		return ScoreScheme.LATEST_ATTEMPT;
 	}
+	*/
+	
 	public String promptUser(String prompt) {
         System.out.print(prompt);
 		Scanner scan = new Scanner(System.in);
@@ -122,6 +128,18 @@ public class ProfAddHomework{
 
 		String timestamp = yyyy+"-"+mm+"-"+dd+" 00:00:00.0";
 		return timestamp;
+	}
+	
+	private String findCID(String token) throws Exception{
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement("SELECT cid FROM Course WHERE token=?");
+		stmt.setString(1, token);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        String cid = rs.getString("cid");
+        System.out.println("-----The CID for the course is:" + cid);
+        return cid;
+        
 	}
 	
 	
