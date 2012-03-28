@@ -27,3 +27,4 @@ DROP SEQUENCE exercise_ids;
 DROP SEQUENCE answer_ids;
 DROP SEQUENCE attempt_ids;
 
+EXIT;

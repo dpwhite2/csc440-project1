@@ -27,8 +27,6 @@ public class Attempt {
 		this.submitTime = submitTime;
 	}
 
-
-
 	public int getAttid() {
 		return attid;
 	}
