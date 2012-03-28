@@ -46,10 +46,10 @@ INSERT INTO TopicPerCourse VALUES ('CSC501', 7);
 INSERT INTO TopicPerCourse VALUES ('CSC501', 8);
 INSERT INTO TopicPerCourse VALUES ('CSC501', 9);
 
-INSERT INTO Enrolled VALUES ('CSC440', 1);
-INSERT INTO Enrolled VALUES ('CSC440', 2);
-INSERT INTO Enrolled VALUES ('CSC440', 3);
-INSERT INTO Enrolled VALUES ('CSC440', 4);
-INSERT INTO Enrolled VALUES ('CSC501', 3);
+INSERT INTO Enrolled VALUES ('CSC440', 'Ssbudha');
+INSERT INTO Enrolled VALUES ('CSC440', 'Sskanit');
+INSERT INTO Enrolled VALUES ('CSC440', 'Agholak');
+INSERT INTO Enrolled VALUES ('CSC440', 'Rjoseph');
+INSERT INTO Enrolled VALUES ('CSC501', 'Agholak');
 
 EXIT;
