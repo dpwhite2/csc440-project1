@@ -117,7 +117,6 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	public boolean onChoice(MenuChoice choice_) throws Exception {
 		if (choice_.shortcut.equals("X")) {
 			return false;
-		// TODO:
 		// if choice == exercise without an open attempt, create attempt & get attempt id
 		// if choice == exercise with open attempt, get attempt id
 		} else {

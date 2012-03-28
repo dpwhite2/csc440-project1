@@ -46,6 +46,13 @@ public abstract class Menu {
     }
     
     /**
+    * Subclasses can override this to provide a heading to the menu.
+    */
+    public String headerMsg() {
+        return null;
+    }
+    
+    /**
      *
      */
     public String invalidChoiceMsg(String shortcut) {
@@ -57,7 +64,7 @@ public abstract class Menu {
      */
     public void displayChoices(MenuChoice[] choices) {
         for (MenuChoice choice: choices) {
-            System.out.printf("%s: %s\n", choice.shortcut, choice.description);
+            System.out.printf("    %s: %s\n", choice.shortcut, choice.description);
         }
     }
     
@@ -66,6 +73,11 @@ public abstract class Menu {
      */
     public void menuLoop() throws Exception {
         while (true) {
+            System.out.println(""); // blank line between menus
+            String header = headerMsg();
+            if (header != null) {
+                System.out.printf("%s\n", header);
+            }
             MenuChoice[] choices = getChoices();
             if (choices.length == 0) {
                 throw new RuntimeException("getChoices() returned empty list of choices.");
@@ -95,6 +107,7 @@ public abstract class Menu {
             
             // Execute menu choice
             boolean continue_loop = onChoice(choice);
+            
             if (!continue_loop) {
                 break;
             }

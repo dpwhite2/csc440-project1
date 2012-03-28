@@ -1,8 +1,8 @@
 package edu.ncsu.csc.csc440.project1.menu;
 
-public class StudentAttemptHomeworkMenu extends Menu {
+public class StudentViewSinglePastSubmissionMenu extends Menu {
 
-    public StudentAttemptHomeworkMenu(String sid, String cid, int attid) {
+    public StudentViewSinglePastSubmissionMenu(String sid, String cid, int attid) {
         // TODO Auto-generated constructor stub
     }
 
@@ -17,4 +17,5 @@ public class StudentAttemptHomeworkMenu extends Menu {
         // TODO Auto-generated method stub
         return false;
     }
+
 }

@@ -1,5 +1,6 @@
 package edu.ncsu.csc.csc440.project1.objs;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class Attempt {
@@ -27,7 +28,15 @@ public class Attempt {
 		this.submitTime = submitTime;
 	}
 
-	public int getAttid() {
+	public Attempt(ResultSet rs) throws Exception {
+	    this.attid = rs.getInt("attid");
+        this.eid = rs.getInt("eid");
+        this.sid = rs.getString("sid");
+        this.attnum = rs.getInt("attnum");
+        this.submitTime = rs.getDate("submittime");
+    }
+
+    public int getAttid() {
 		return attid;
 	}
 	public int getEid() {
