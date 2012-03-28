@@ -43,9 +43,11 @@ public class StudentMenu extends Menu{
 		if(choice.shortcut.equals("S")){
 			StudentSelectCourseMenu menu = new StudentSelectCourseMenu(sid);
 			menu.menuLoop();
+			return true;
 		}
 		else if(choice.shortcut.equals("A")){
             addCourse();
+            return true;
 		}
 		else if(choice.shortcut.equals("X")){
 			return false;
@@ -53,7 +55,6 @@ public class StudentMenu extends Menu{
 		else{
 			throw new RuntimeException("StudentMenu.onChoice() couldn't match choices");
 		}
-		return false;
 	}
 	
 	private Course getCourseWithToken(String token) throws Exception {

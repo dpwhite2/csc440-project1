@@ -48,7 +48,7 @@ public class StudentSelectCourseMenu extends Menu {
             Course[] courses = new Course[count];
             
             stmt = conn.prepareStatement(
-                "SELECT cid, cname "
+                "SELECT C.cid, C.cname, C.token, C.startdate, C.enddate, C.pid "
                 + "FROM Course C, Enrolled E "
                 + "WHERE E.cid=C.cid AND E.sid=?");
             stmt.setString(1, sid);
@@ -60,8 +60,8 @@ public class StudentSelectCourseMenu extends Menu {
                 String cid = rs.getString("cid");
                 String token = rs.getString("token");
                 String cname = rs.getString("cname");
-                Date startDate = rs.getDate("startDate");
-                Date endDate = rs.getDate("endDate");
+                Date startDate = rs.getDate("startdate");
+                Date endDate = rs.getDate("enddate");
                 int pid = rs.getInt("pid");
                 courses[i] = new Course(cid, token, cname, startDate, endDate, pid);
                 rs.next();

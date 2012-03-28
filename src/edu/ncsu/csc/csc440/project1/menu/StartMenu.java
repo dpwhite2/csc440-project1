@@ -96,6 +96,23 @@ public class StartMenu extends Menu {
             conn.close();
         }
     }
+
+    private String loginAsStudent(User user) throws Exception {
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT sid FROM Student S WHERE S.userid=?");
+            stmt.setInt(1, user.getUserid());
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.printf("Error: Cannot find Student with given userid.\n");
+                return "";
+            }
+            return rs.getString("sid");
+        } finally {
+            conn.close();
+        }
+    }
     
     void login() throws Exception {
 		Scanner scan = new Scanner(System.in);
@@ -114,6 +131,11 @@ public class StartMenu extends Menu {
         // check user role
         if (user.getRole().equals("student")) {
             System.out.println("Logging in as student...");
+            String sid = loginAsStudent(user);
+            if (!sid.equals("")) {
+                StudentMenu sm = new StudentMenu(sid);
+                sm.menuLoop();
+            }
         } else if (user.getRole().equals("prof")) {
             System.out.println("Logging in as professor...");
             int pid = loginAsProfessor(user);
@@ -126,7 +148,7 @@ public class StartMenu extends Menu {
             System.out.println("Error logging in! Role not found.");
         }
     }
-    
+
     void createUser() throws Exception {
 		Scanner scan = new Scanner(System.in);
         // prompt for user role

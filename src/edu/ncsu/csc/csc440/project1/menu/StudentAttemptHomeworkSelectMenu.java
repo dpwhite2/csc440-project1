@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
+import edu.ncsu.csc.csc440.project1.objs.Attempt;
+import edu.ncsu.csc.csc440.project1.objs.AttemptFactory;
 import edu.ncsu.csc.csc440.project1.objs.Exercise;
 
 public class StudentAttemptHomeworkSelectMenu extends Menu {
@@ -28,20 +30,23 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	}
 	
 	private ArrayList<Exercise> getAttemptReadyHomeworks() throws Exception {
-	    String query = "SELECT "
+	    String query = 
+	            "SELECT E.eid, E.cid, E.ename, E.startdate, E.enddate, "
+	                 + "E.correct_points, E.penalty_points, E.seed, "
+	                 + "E.score_method, E.maximum_attempts "
 	            + "FROM Exercise E "
 	            + "WHERE E.startdate < ? AND ? < E.enddate AND E.cid=? "
 	            + "AND (( "
 	                 // exercises with at least one attempt remaining
-	                 + "E.maximum_attempts > count( "
-	                     + "SELECT * "
+	                 + "E.maximum_attempts > ("
+	                     + "SELECT count(*) "
 	                     + "FROM Attempt A "
 	                     + "WHERE E.eid=A.eid AND A.sid=? "
 	                 + ") "
 	            + ") OR ( "
 	                 // exercises with an attempt that hasn't been completed
-	                 + "0 < count( "
-	                     + "SELECT * "
+	                 + "0 < ( "
+	                     + "SELECT count(*) "
 	                     + "FROM Attempt A "
 	                     + "WHERE E.eid=A.eid AND A.sid=? AND A.submittime=NULL "
 	                 + ") "
@@ -81,9 +86,9 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	    
 	    for (int i=0; i<exercises.size(); i++) {
 	        Exercise ex = exercises.get(i);
-	        String label = String.valueOf(ex.getEid());
+	        String label = ex.getEname();
 	        int eid = ex.getEid();
-	        choices[i] = new ExerciseMenuChoice(String.valueOf(i), label, eid);
+	        choices[i] = new ExerciseMenuChoice(String.valueOf(i+1), label, eid);
 	    }
 	    
 	    choices[exercises.size()] = new MenuChoice("X", "Back");
@@ -122,7 +127,9 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 		    int attid = getOpenAttemptId(eid);
 		    if (attid == -1) {
 		        // no attempt exists, so create new attempt
-		        // TODO:
+		        AttemptFactory factory = new AttemptFactory(eid, sid);
+		        Attempt att = factory.create();
+		        attid = att.getAttid();
 		    }
 		    StudentAttemptHomeworkMenu menu = new StudentAttemptHomeworkMenu(sid, cid, attid);
 		    menu.menuLoop();

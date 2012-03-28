@@ -10,6 +10,7 @@ CREATE TABLE UserInfo (
 );
 
 CREATE SEQUENCE userinfo_ids START WITH 1000 INCREMENT BY 1;
+SELECT userinfo_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE Student (
     sid VARCHAR2(64)            NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE Professor (
 );
 
 CREATE SEQUENCE professor_ids START WITH 1000 INCREMENT BY 1;
+SELECT professor_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE TA (
     taid INTEGER                NOT NULL,
@@ -35,6 +37,7 @@ CREATE TABLE TA (
 );
 
 CREATE SEQUENCE ta_ids START WITH 1000 INCREMENT BY 1;
+SELECT ta_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE Topic (
     tid INTEGER                 NOT NULL,
@@ -43,6 +46,7 @@ CREATE TABLE Topic (
 );
 
 CREATE SEQUENCE topic_ids START WITH 1000 INCREMENT BY 1;
+SELECT topic_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE Course (
     cid VARCHAR2(32)            NOT NULL,
@@ -95,6 +99,7 @@ CREATE TABLE Exercise (
 );
 
 CREATE SEQUENCE exercise_ids START WITH 1000 INCREMENT BY 1;
+SELECT exercise_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE Question (
     qname           VARCHAR2(64)                NOT NULL,
@@ -128,6 +133,7 @@ CREATE TABLE Answer (
 );
 
 CREATE SEQUENCE answer_ids START WITH 1000 INCREMENT BY 1;
+SELECT answer_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE Attempt (
     attid           INTEGER         NOT NULL,
@@ -142,6 +148,7 @@ CREATE TABLE Attempt (
 );
 
 CREATE SEQUENCE attempt_ids START WITH 1000 INCREMENT BY 1;
+SELECT attempt_ids.nextval FROM DUAL;  -- initialize sequence
 
 CREATE TABLE AttemptQuestion (
     attid           INTEGER                         NOT NULL,

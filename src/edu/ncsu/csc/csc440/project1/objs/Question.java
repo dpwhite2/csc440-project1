@@ -1,5 +1,7 @@
 package edu.ncsu.csc.csc440.project1.objs;
 
+import java.sql.ResultSet;
+
 public class Question {
 	
 	private String qname;
@@ -32,7 +34,17 @@ public class Question {
 		this.explanation = explanation;
 	}
 
-	public String getQname() {
+	public Question(ResultSet rs) throws Exception {
+	    this.qname = rs.getString("qname");
+        this.text = rs.getString("text");
+        this.difficulty = rs.getInt("difficulty");
+        this.hint = rs.getString("hint");
+        this.correctPoints = rs.getInt("correct_points");
+        this.penaltyPoints = rs.getInt("penalty_points");
+        this.explanation = rs.getString("explanation");
+    }
+
+    public String getQname() {
 		return qname;
 	}
 	public String getText() {
