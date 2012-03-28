@@ -81,12 +81,14 @@ CREATE TABLE TopicPerCourse (
 
 CREATE TABLE Exercise (
     eid             INTEGER     NOT NULL,
+    cid             VARCHAR2(32) NOT NULL,
     startdate       DATE   NOT NULL,
     enddate         DATE   NOT NULL,
     correct_points  INTEGER     NOT NULL,
     penalty_points  INTEGER     NOT NULL,
     seed            INTEGER     NOT NULL,
     score_method    VARCHAR2(30)    NOT NULL,
+    maximum_attempts INTEGER DEFAULT 1,
     PRIMARY KEY (eid)
 );
 
