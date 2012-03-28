@@ -12,8 +12,8 @@ import edu.ncsu.csc.csc440.project1.objs.Course;
 public class StudentSelectCourseMenu extends Menu {
     
     class CourseMenuChoice extends MenuChoice {
-        public int cid = -1;
-        public CourseMenuChoice(String shortcut, String description, int cid) {
+        public String cid = "";
+        public CourseMenuChoice(String shortcut, String description, String cid) {
             super(shortcut, description);
             this.cid = cid;
         }
@@ -57,12 +57,13 @@ public class StudentSelectCourseMenu extends Menu {
                 return new Course[0];
             }
             for (int i=0; i<count; i++) {
-                int cid = rs.getInt("cid");
+                String cid = rs.getString("cid");
+                String token = rs.getString("token");
                 String cname = rs.getString("cname");
                 Date startDate = rs.getDate("startDate");
                 Date endDate = rs.getDate("endDate");
                 int pid = rs.getInt("pid");
-                courses[i] = new Course(cid, cname, startDate, endDate, pid);
+                courses[i] = new Course(cid, token, cname, startDate, endDate, pid);
                 rs.next();
             }
             return courses;
@@ -92,7 +93,7 @@ public class StudentSelectCourseMenu extends Menu {
 		} else {
             // assume shortcut is for a course in menu
             CourseMenuChoice choice = (CourseMenuChoice)choice_;
-            int cid = choice.cid;
+            String cid = choice.cid;
             StudentCourseMenu menu = new StudentCourseMenu(sid, cid);
             menu.menuLoop();
             return true;

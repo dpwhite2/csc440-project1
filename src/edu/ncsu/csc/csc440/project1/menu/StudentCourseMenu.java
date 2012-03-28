@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 
 public class StudentCourseMenu extends Menu {
 
-    private int cid;
+    private String cid;
     private String sid;
     
-    public StudentCourseMenu(String sid, int cid) {
+    public StudentCourseMenu(String sid, String cid) {
         this.cid = cid;
         this.sid = sid;
     }
