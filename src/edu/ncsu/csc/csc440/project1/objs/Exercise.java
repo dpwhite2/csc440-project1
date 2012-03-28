@@ -6,6 +6,7 @@ import java.util.Date;
 public class Exercise {
 	private int eid;
     private String cid;
+    private String ename;
 	private Date startDate;
 	private Date endDate;
 	private int correctPoints;
@@ -17,6 +18,7 @@ public class Exercise {
 	public Exercise() {
 		this.eid = -1;
         this.cid = "";
+        this.ename = "";
 		this.startDate = new Date();
 		this.endDate = new Date();
 		this.correctPoints = -1;
@@ -26,11 +28,12 @@ public class Exercise {
         this.maximumAttempts = 1;
 	}
 	
-	public Exercise(int eid, String cid, Date startDate, Date endDate, int correctPoints,
+	public Exercise(int eid, String cid, String ename, Date startDate, Date endDate, int correctPoints,
 			int penaltyPoints, int seed, String scoreMethod, int maximumAttempts) {
 		super();
 		this.eid = eid;
         this.cid = cid;
+        this.ename = ename;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.correctPoints = correctPoints;
@@ -43,6 +46,7 @@ public class Exercise {
 	public Exercise(ResultSet rs) throws Exception {
 	    this.eid = rs.getInt("eid");
         this.cid = rs.getString("cid");
+        this.ename = rs.getString("ename");
         this.startDate = rs.getDate("startdate");
         this.endDate = rs.getDate("enddate");
         this.correctPoints = rs.getInt("correct_points");
@@ -57,6 +61,9 @@ public class Exercise {
 	}
 	public String getCid() {
         return cid;
+    }
+    public String getEname() {
+        return ename;
     }
     public Date getStartDate() {
 		return startDate;
