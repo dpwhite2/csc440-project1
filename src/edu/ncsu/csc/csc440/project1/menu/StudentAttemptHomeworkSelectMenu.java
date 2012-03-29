@@ -48,7 +48,7 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	                 + "0 < ( "
 	                     + "SELECT count(*) "
 	                     + "FROM Attempt A "
-	                     + "WHERE E.eid=A.eid AND A.sid=? AND A.submittime=NULL "
+	                     + "WHERE E.eid=A.eid AND A.sid=? AND A.submittime IS NULL "
 	                 + ") "
 	            + ")) ";
 	    Connection conn = null;
@@ -96,7 +96,7 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	}
 	
 	private int getOpenAttemptId(int eid) throws Exception {
-	    String query = "SELECT A.attid FROM Attempt A WHERE A.submittime=NULL AND A.eid=?";
+	    String query = "SELECT A.attid FROM Attempt A WHERE A.submittime IS NULL AND A.eid=?";
 	    Connection conn = null;
 	    try {
 	        conn = DBConnection.getConnection();
@@ -125,10 +125,12 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 		    int eid = choice.eid;
 		    int attid = getOpenAttemptId(eid);
 		    if (attid == -1) {
+		        System.out.printf("DBG: Generating new Attempt...\n");
 		        // no attempt exists, so create new attempt
 		        AttemptFactory factory = new AttemptFactory(eid, sid);
 		        Attempt att = factory.create();
 		        attid = att.getAttid();
+		        System.out.printf("attid = %d\n",attid);
 		    }
 		    StudentAttemptHomeworkMenu menu = new StudentAttemptHomeworkMenu(sid, cid, attid);
 		    menu.menuLoop();
