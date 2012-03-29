@@ -20,6 +20,22 @@ public class AttemptFactory {
         this.rand = new Random();
     }
     
+    private Exercise getExercise() throws Exception {
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT E.* FROM Exercise E WHERE E.eid=?");
+            stmt.setInt(1, eid);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                throw new RuntimeException("Exercise not found.");
+            }
+            return new Exercise(rs);
+        } finally {
+            conn.close();
+        }
+    }
+    
     private ArrayList<Question> getAllQuestions() throws Exception {
         // get all questions for this exercise
         Connection conn = null;
@@ -169,7 +185,8 @@ public class AttemptFactory {
         Attempt att = createAttempt();
         System.out.printf("Attempt.attid = %d\n",att.getAttid());
         // choose questions
-        ArrayList<Question> questions = chooseQuestions(2);
+        Exercise ex = getExercise();
+        ArrayList<Question> questions = chooseQuestions(ex.getQuestionCount());
         // choose answers
         for (int i=0; i < questions.size(); i++) {
             Question ques = questions.get(i);

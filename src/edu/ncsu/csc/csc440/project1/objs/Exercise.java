@@ -14,6 +14,7 @@ public class Exercise {
 	private int seed;
 	private String scoreMethod;
 	private int maximumAttempts;
+    private int questionCount;
 	
 	public Exercise() {
 		this.eid = -1;
@@ -26,10 +27,11 @@ public class Exercise {
 		this.seed = -1;
 		this.scoreMethod = "";
         this.maximumAttempts = 1;
+        this.questionCount = -1;
 	}
 	
 	public Exercise(int eid, String cid, String ename, Date startDate, Date endDate, int correctPoints,
-			int penaltyPoints, int seed, String scoreMethod, int maximumAttempts) {
+			int penaltyPoints, int seed, String scoreMethod, int maximumAttempts, int questionCount) {
 		super();
 		this.eid = eid;
         this.cid = cid;
@@ -41,6 +43,7 @@ public class Exercise {
 		this.seed = seed;
 		this.scoreMethod = scoreMethod;
         this.maximumAttempts = maximumAttempts;
+        this.questionCount = questionCount;
 	}
 	
 	public Exercise(ResultSet rs) throws Exception {
@@ -54,6 +57,7 @@ public class Exercise {
         this.seed = rs.getInt("seed");
         this.scoreMethod = rs.getString("score_method");
         this.maximumAttempts = rs.getInt("maximum_attempts");
+        this.questionCount = rs.getInt("question_count");
 	}
 
 	public int getEid() {
@@ -83,4 +87,12 @@ public class Exercise {
 	public String getScoreMethod() {
 		return scoreMethod;
 	}
+
+    public int getMaximumAttempts() {
+        return maximumAttempts;
+    }
+
+    public int getQuestionCount() {
+        return questionCount;
+    }
 }
