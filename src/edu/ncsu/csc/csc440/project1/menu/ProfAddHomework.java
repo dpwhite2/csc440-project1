@@ -65,7 +65,7 @@ public class ProfAddHomework{
 			String cid = findCID(this.cToken);
 			// TODO write correct INSERT
 			String query = "INSERT INTO Exercise VALUES (exercise_ids.nextval, '"+cid+"', '"+ename+"', timestamp'" +
-					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+")";
+					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+", 0)";
 			System.out. println(query);
 			int success = 0;
 			try{
