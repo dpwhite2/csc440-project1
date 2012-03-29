@@ -110,7 +110,7 @@ public class AttemptFactory {
             int attnum = rs.getInt(1);
             
             // Store attempt record
-            String s = "INSERT INTO Attempt VALUES (attempt_ids.nextval, ?, ?, ?, NULL)";
+            String s = "INSERT INTO Attempt VALUES (attempt_ids.nextval, ?, ?, ?, NULL, 0)";
             stmt = conn.prepareStatement(s);
             stmt.setInt(1, eid);
             stmt.setString(2, sid);
@@ -134,7 +134,7 @@ public class AttemptFactory {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            String s = "INSERT INTO AttemptQuestion VALUES (?, ?, ?, NULL, '')";
+            String s = "INSERT INTO AttemptQuestion VALUES (?, ?, ?, NULL, '', 0)";
             PreparedStatement stmt = conn.prepareStatement(s);
             stmt.setInt(1, att.getAttid());
             stmt.setInt(2, qpos);
