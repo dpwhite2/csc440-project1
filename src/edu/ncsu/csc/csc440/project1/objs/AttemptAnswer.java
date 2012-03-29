@@ -1,11 +1,14 @@
 package edu.ncsu.csc.csc440.project1.objs;
 
+import java.sql.ResultSet;
+
 public class AttemptAnswer {
     private int attid;
     private int qposition;
     private int aposition;
     private int ansid;
-    
+    private String text = "";
+
     public AttemptAnswer() {
         this.attid = -1;
         this.qposition = -1;
@@ -20,6 +23,20 @@ public class AttemptAnswer {
         this.ansid = ansid;
     }
     
+    public AttemptAnswer(ResultSet rs) throws Exception {
+        this.attid = rs.getInt("attid");
+        this.qposition = rs.getInt("qposition");
+        this.aposition = rs.getInt("aposition");
+        this.ansid = rs.getInt("ansid");
+    }
+    
+    public String getText() {
+        return text;
+    }
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public int getAttid() {
         return attid;
     }

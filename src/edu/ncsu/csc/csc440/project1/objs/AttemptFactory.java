@@ -97,6 +97,7 @@ public class AttemptFactory {
     }
     
     private Attempt createAttempt() throws Exception {
+        System.out.printf("Creating attempt...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -129,6 +130,7 @@ public class AttemptFactory {
     }
     
     private AttemptQuestion createAttemptQuestion(Attempt att, Question ques, int qpos) throws Exception {
+        System.out.printf("Creating attempt question...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -137,6 +139,7 @@ public class AttemptFactory {
             stmt.setInt(1, att.getAttid());
             stmt.setInt(2, qpos);
             stmt.setString(3, ques.getQname());
+            
             stmt.executeUpdate();
             return new AttemptQuestion(att.getAttid(), qpos, ques.getQname(), -1, "");
         } finally {
@@ -145,6 +148,7 @@ public class AttemptFactory {
     }
     
     private AttemptAnswer createAttemptAnswer(AttemptQuestion attques, Answer ans, int qpos, int apos) throws Exception {
+        System.out.printf("Creating attempt answer...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -163,6 +167,7 @@ public class AttemptFactory {
     
     public Attempt create() throws Exception {
         Attempt att = createAttempt();
+        System.out.printf("Attempt.attid = %d\n",att.getAttid());
         // choose questions
         ArrayList<Question> questions = chooseQuestions(2);
         // choose answers

@@ -1,5 +1,7 @@
 package edu.ncsu.csc.csc440.project1.objs;
 
+import java.sql.ResultSet;
+
 public class AttemptQuestion {
     private int attid;
     private int qposition;
@@ -24,6 +26,14 @@ public class AttemptQuestion {
         this.justification = justification;
     }
     
+    public AttemptQuestion(ResultSet rs) throws Exception {
+        this.attid = rs.getInt("attid");
+        this.qposition = rs.getInt("qposition");
+        this.qname = rs.getString("qname");
+        this.chosenAnswerPosition = rs.getInt("chosen_answer_pos");
+        this.justification = rs.getString("justification");
+    }
+
     public int getAttid() {
         return attid;
     }
