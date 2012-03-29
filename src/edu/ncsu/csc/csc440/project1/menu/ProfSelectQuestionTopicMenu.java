@@ -63,9 +63,8 @@ public class ProfSelectQuestionTopicMenu extends Menu{
 		else{
 			for(int i =0; i< menuChoices.length;i++){
 				if(choice.shortcut.equals(menuChoices[i].shortcut)){
-					//ProfCreateQuestion menu = new ProfCreateQuestion(Integer.parseInt(choice.shortcut));
-					//while(!menu.run());
-					//this.menuLoop(); //on next menu "back", run this menu again
+					ProfCreateQuestion menu = new ProfCreateQuestion();
+					while(!menu.run());
 					break;
 				}
 			}
