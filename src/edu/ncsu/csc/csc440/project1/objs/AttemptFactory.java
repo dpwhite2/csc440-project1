@@ -122,7 +122,7 @@ public class AttemptFactory {
             rs = stmt.executeQuery();
             rs.next();
             int attid = rs.getInt(1);
-            Attempt att = new Attempt(attid, eid, sid, attnum, null);
+            Attempt att = new Attempt(attid, eid, sid, attnum, null, 0);
             return att;
         } finally {
             conn.close();
@@ -141,7 +141,7 @@ public class AttemptFactory {
             stmt.setString(3, ques.getQname());
             
             stmt.executeUpdate();
-            return new AttemptQuestion(att.getAttid(), qpos, ques.getQname(), -1, "");
+            return new AttemptQuestion(att.getAttid(), qpos, ques.getQname(), -1, "", 0);
         } finally {
             conn.close();
         }

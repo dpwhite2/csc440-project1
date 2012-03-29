@@ -8,22 +8,25 @@ public class AttemptQuestion {
     private String qname;
     private int chosenAnswerPosition;
     private String justification;
-    
+    private int points;
+
     public AttemptQuestion() {
         this.attid = -1;
         this.qposition = -1;
         this.qname = "";
         this.chosenAnswerPosition = -1;
         this.justification = "";
+        this.points = 0;
     }
     
     public AttemptQuestion(int attid, int qposition, String qname,
-            int chosenAnswerPosition, String justification) {
+            int chosenAnswerPosition, String justification, int points) {
         this.attid = attid;
         this.qposition = qposition;
         this.qname = qname;
         this.chosenAnswerPosition = chosenAnswerPosition;
         this.justification = justification;
+        this.points = points;
     }
     
     public AttemptQuestion(ResultSet rs) throws Exception {
@@ -32,6 +35,7 @@ public class AttemptQuestion {
         this.qname = rs.getString("qname");
         this.chosenAnswerPosition = rs.getInt("chosen_answer_pos");
         this.justification = rs.getString("justification");
+        this.points = rs.getInt("points");
     }
 
     public int getAttid() {
@@ -48,5 +52,8 @@ public class AttemptQuestion {
     }
     public String getJustification() {
         return justification;
+    }
+    public int getPoints() {
+        return points;
     }
 }
