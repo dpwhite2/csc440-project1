@@ -48,7 +48,8 @@ public class ProfCourseMenu extends Menu{
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("N")){
-			//ProfAddAnswerMenu
+			ProfAddAnswerMenu ansMenu = new ProfAddAnswerMenu(this.cToken);
+			ansMenu.menuLoop();
 		}
 		else if(choice.shortcut.equals("R")){
 			//ProfReportsMenu
