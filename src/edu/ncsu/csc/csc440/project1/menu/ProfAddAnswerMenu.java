@@ -61,8 +61,8 @@ public class ProfAddAnswerMenu extends Menu{
 		else{
 			for(int i =0; i< menuChoices.length;i++){
 				if(choice.shortcut.equals(menuChoices[i].shortcut)){
-					//ProfAddAnswer addAnsMenu = new ProfAddAnswer(qName);
-					//menu.run();
+					ProfAddAnswer addAnsMenu = new ProfAddAnswer(menuChoices[i].description);
+					addAnsMenu.run();
 					break;
 				}
 			}
