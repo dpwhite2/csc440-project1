@@ -68,8 +68,9 @@ public class ProfSelectHomeworkMenu extends Menu{
 		else{
 			for(int i =0; i< menuChoices.length;i++){
 				if(choice.shortcut.equals(menuChoices[i].shortcut)){
-					//ProfEditHomeworkMenu menu = new ProfEditHomeworkMenu();
-					//menu.menuLoop();
+					ProfEditHomeworkMenu menu = new ProfEditHomeworkMenu(Integer.parseInt(choice.shortcut));
+					while(!menu.run());
+					this.menuLoop(); //on next menu "back", run this menu again
 					break;
 				}
 			}

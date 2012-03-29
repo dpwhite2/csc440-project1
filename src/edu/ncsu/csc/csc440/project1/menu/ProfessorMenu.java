@@ -39,7 +39,7 @@ public class ProfessorMenu extends Menu{
 		}
 		else if(choice.shortcut.equals("A")){
 			ProfAddCourseMenu menu2 = new ProfAddCourseMenu(this.pid);
-			while(!menu2.run()); //run until it returns true
+			while(!menu2.run()); //run until it returns true (successful)
 		}
 		else if(choice.shortcut.equals("X")){
 			return false;

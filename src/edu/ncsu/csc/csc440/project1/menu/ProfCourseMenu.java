@@ -40,6 +40,7 @@ public class ProfCourseMenu extends Menu{
 		else if(choice.shortcut.equals("E")){
 			ProfSelectHomeworkMenu selectMenu = new ProfSelectHomeworkMenu(this.pid, this.cToken);
 			selectMenu.menuLoop();
+			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("Q")){
 			//ProfSelectQuestionTopicMenu
