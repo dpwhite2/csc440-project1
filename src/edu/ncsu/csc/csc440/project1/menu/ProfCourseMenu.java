@@ -43,7 +43,9 @@ public class ProfCourseMenu extends Menu{
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("Q")){
-			//ProfSelectQuestionTopicMenu
+			ProfSelectQuestionTopicMenu topicMenu = new ProfSelectQuestionTopicMenu(this.pid, this.cToken);
+			topicMenu.menuLoop();
+			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("N")){
 			//ProfAddAnswerMenu
