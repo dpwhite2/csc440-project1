@@ -1,7 +1,6 @@
 package edu.ncsu.csc.csc440.project1.menu;
 
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
@@ -24,6 +23,10 @@ public class StudentSelectCourseMenu extends Menu {
 	public StudentSelectCourseMenu(String id){
 		this.sid = id;
 	}
+	
+	public String headerMsg() {
+        return "Select a Course";
+    }
     
     /**
      * All courses a Student is enrolled in

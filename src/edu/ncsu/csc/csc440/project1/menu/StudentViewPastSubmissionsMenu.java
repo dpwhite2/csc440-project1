@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
-import edu.ncsu.csc.csc440.project1.menu.StudentAttemptHomeworkSelectMenu.ExerciseMenuChoice;
 import edu.ncsu.csc.csc440.project1.objs.Attempt;
-import edu.ncsu.csc.csc440.project1.objs.Exercise;
 
 public class StudentViewPastSubmissionsMenu extends Menu {
     
@@ -72,6 +70,7 @@ public class StudentViewPastSubmissionsMenu extends Menu {
 		    // assume choice is for a legitimate past submission choice
 		    PastAttemptsMenuChoice choice = (PastAttemptsMenuChoice)choice_;
 		    StudentViewSinglePastSubmissionMenu menu = new StudentViewSinglePastSubmissionMenu(sid, cid, choice.attid);
+		    menu.menuLoop();
 		    return true;
 		}
 	}

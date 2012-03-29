@@ -1,10 +1,5 @@
 package edu.ncsu.csc.csc440.project1.menu;
 
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 public class StudentCourseMenu extends Menu {
 
     private String cid;
@@ -13,6 +8,10 @@ public class StudentCourseMenu extends Menu {
     public StudentCourseMenu(String sid, String cid) {
         this.cid = cid;
         this.sid = sid;
+    }
+    
+    public String headerMsg() {
+        return "Course Menu";
     }
 
     public MenuChoice[] getChoices() {

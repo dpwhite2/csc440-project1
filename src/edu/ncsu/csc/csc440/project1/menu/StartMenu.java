@@ -2,7 +2,6 @@ package edu.ncsu.csc.csc440.project1.menu;
 
 import java.util.Scanner;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -17,6 +16,10 @@ public class StartMenu extends Menu {
             new MenuChoice("X", "Exit Program")
         };
         return choices;
+    }
+    
+    public String headerMsg() {
+        return "Homework Manager: Main Menu";
     }
     
     public boolean onChoice(MenuChoice choice) throws Exception {
@@ -54,8 +57,6 @@ public class StartMenu extends Menu {
             if (!rs.next()) {
                 // username not found
                 System.out.printf("Incorrect username or password.\n");
-                //System.out.printf("username=\"%s\"\n", username);
-                //System.out.printf("password=\"%s\"\n", password);
                 return null;
             }
             int userid = rs.getInt("userid");
@@ -64,11 +65,7 @@ public class StartMenu extends Menu {
             String role = rs.getString("role");
             if (!password.equals(actual_password)) {
                 // password does not match
-                System.out.println("Incorrect username or password.");
-                //System.out.printf("username=       \"%s\"\n", username);
-                //System.out.printf("actual_username=\"%s\"\n", actual_username);
-                //System.out.printf("password=       \"%s\"\n", password);
-                //System.out.printf("actual_password=\"%s\"\n", actual_password);
+                System.out.println("ERROR: Incorrect username or password.");
                 return null;
             }
             return new User(userid, actual_username, actual_password, role);
@@ -88,7 +85,7 @@ public class StartMenu extends Menu {
             stmt.setInt(1, user.getUserid());
             ResultSet rs = stmt.executeQuery();
             if (!rs.next()) {
-                System.out.printf("Error: Cannot find Professor with given userid.\n");
+                System.out.printf("ERROR: Cannot find Professor with given userid.\n");
                 return -1;
             }
             return rs.getInt("pid");
@@ -105,7 +102,7 @@ public class StartMenu extends Menu {
             stmt.setInt(1, user.getUserid());
             ResultSet rs = stmt.executeQuery();
             if (!rs.next()) {
-                System.out.printf("Error: Cannot find Student with given userid.\n");
+                System.out.printf("ERROR: Cannot find Student with given userid.\n");
                 return "";
             }
             return rs.getString("sid");
@@ -130,14 +127,14 @@ public class StartMenu extends Menu {
         
         // check user role
         if (user.getRole().equals("student")) {
-            System.out.println("Logging in as student...");
+            System.out.println("DBG: Logging in as student...");
             String sid = loginAsStudent(user);
             if (!sid.equals("")) {
                 StudentMenu sm = new StudentMenu(sid);
                 sm.menuLoop();
             }
         } else if (user.getRole().equals("prof")) {
-            System.out.println("Logging in as professor...");
+            System.out.println("DBG: Logging in as professor...");
             int pid = loginAsProfessor(user);
             if (pid != -1) {
                 ProfessorMenu pm = new ProfessorMenu(pid);
@@ -145,7 +142,7 @@ public class StartMenu extends Menu {
             }
         } else {
             // error
-            System.out.println("Error logging in! Role not found.");
+            System.out.println("ERROR: Error logging in! Role not found.");
         }
     }
 
@@ -180,7 +177,7 @@ public class StartMenu extends Menu {
         ResultSet rs = stmt.executeQuery();
         if (!rs.next()) {
             // TODO: error
-            System.out.printf("Could not retrieve new key.\n");
+            System.out.printf("ERROR: Could not retrieve new key.\n");
             return;
         }
         int userid = rs.getInt(1);
@@ -192,7 +189,7 @@ public class StartMenu extends Menu {
             stmt.setInt(1, userid);
             stmt.executeUpdate();
         } else {
-            System.out.printf("Error. Unknown role!\n");
+            System.out.printf("ERROR: Unknown role!\n");
         }
     }
 }
