@@ -95,6 +95,7 @@ CREATE TABLE Exercise (
     seed                INTEGER         DEFAULT 0   NOT NULL,
     score_method        VARCHAR2(30)                NOT NULL,
     maximum_attempts    INTEGER         DEFAULT 1   NOT NULL,
+    question_count      INTEGER         DEFAULT 1   NOT NULL,
     PRIMARY KEY (eid)
 );
 
