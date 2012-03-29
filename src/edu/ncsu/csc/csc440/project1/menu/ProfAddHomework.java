@@ -34,7 +34,7 @@ public class ProfAddHomework{
 	}
 	
 	public boolean run() throws Exception{
-		//TODO finish
+		
 		String answer = promptUser(prompt);
 		
 		try{
