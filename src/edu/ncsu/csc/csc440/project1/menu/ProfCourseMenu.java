@@ -12,7 +12,7 @@ public class ProfCourseMenu extends Menu{
 	private MenuChoice[] menuChoices = {new MenuChoice("A", "Add homework"),
 			new MenuChoice("E", "Edit homework"), new MenuChoice("Q", "Add question"),
 			new MenuChoice("N", "Add answer"), new MenuChoice("R", "Reports"),
-			new MenuChoice("X", "Back")};;
+			new MenuChoice("X", "Back")};
 			
 	private String cToken;
 	private int pid;
@@ -53,7 +53,9 @@ public class ProfCourseMenu extends Menu{
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("R")){
-			//ProfReportsMenu
+			ProfReportsMenu reports = new ProfReportsMenu(this.pid, this.cToken);
+			reports.menuLoop();
+			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("X")){
 			return false;
