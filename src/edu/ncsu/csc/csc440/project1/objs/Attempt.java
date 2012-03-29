@@ -10,6 +10,7 @@ public class Attempt {
 	private String sid;
 	private int attnum;
 	private Date submitTime;
+	private int points;
 	
 	public Attempt() {
 		this.attid = -1;
@@ -17,15 +18,17 @@ public class Attempt {
 		this.sid = "";
 		this.attnum = -1;
 		this.submitTime = new Date();
+        this.points = 0;
 	}
 	
-	public Attempt(int attid, int eid, String sid, int attnum, Date submitTime) {
+	public Attempt(int attid, int eid, String sid, int attnum, Date submitTime, int points) {
 		super();
 		this.attid = attid;
 		this.eid = eid;
 		this.sid = sid;
 		this.attnum = attnum;
 		this.submitTime = submitTime;
+        this.points = points;
 	}
 
 	public Attempt(ResultSet rs) throws Exception {
@@ -34,6 +37,7 @@ public class Attempt {
         this.sid = rs.getString("sid");
         this.attnum = rs.getInt("attnum");
         this.submitTime = rs.getDate("submittime");
+        this.points = rs.getInt("points");
     }
 
     public int getAttid() {
@@ -51,7 +55,8 @@ public class Attempt {
 	public Date getSubmitTime() {
 		return submitTime;
 	}
-	
-	
+    public int getPoints() {
+        return points;
+    }
 	
 }

@@ -141,6 +141,7 @@ CREATE TABLE Attempt (
     sid             VARCHAR2(64)    NOT NULL,
     attnum          INTEGER         NOT NULL,
     submittime      DATE, /* if this is NULL, attempt has not been submitted */
+    points          INTEGER         DEFAULT 0,
     PRIMARY KEY (attid),
     UNIQUE (eid, sid, attnum),
     FOREIGN KEY (eid) REFERENCES Exercise,
@@ -156,6 +157,7 @@ CREATE TABLE AttemptQuestion (
     qname           VARCHAR2(64)                    NOT NULL,
     chosen_answer_pos   INTEGER,  /* if this is NULL, no answer has been given yet */
     justification   VARCHAR2(1000)      DEFAULT '',
+    points          INTEGER         DEFAULT 0,
     PRIMARY KEY (attid, qposition),
     FOREIGN KEY (attid) REFERENCES Attempt,
     FOREIGN KEY (qname) REFERENCES Question

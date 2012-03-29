@@ -70,6 +70,54 @@ public class StudentAttemptHomeworkMenu extends Menu {
     
     private void submitAttempt() throws Exception {
         Connection conn = null;
+        // Calculate scores on each AttemptQuestion
+        try {
+            conn = DBConnection.getConnection();
+            String s = "SELECT AQ.*, AA.aposition, E.correct_points, E.penalty_points "
+                     + "FROM AttemptQuestion AQ, AttemptAnswer AA, Answer A, Exercise E, Attempt AT " 
+                     + "WHERE AQ.attid=? AND AQ.attid=AA.attid AND AQ.qposition=AA.qposition AND AA.ansid=A.ansid AND A.correct<>0 AND AQ.attid=AT.attid AND AT.eid=E.eid";
+            PreparedStatement stmt = conn.prepareStatement(s);
+            stmt.setInt(1, attid);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int correct_position = rs.getInt("aposition");
+                int chosen_position = rs.getInt("chosen_answer_pos");
+                int correct_points = rs.getInt("correct_points");
+                int penalty_points = rs.getInt("penalty_points");
+                int qpos = rs.getInt("qposition");
+                int points = 0;
+                if (chosen_position == correct_position) {
+                    points = correct_points;
+                } else {
+                    points = -penalty_points;
+                }
+                System.out.printf("DBG: points on question %d: %d\n", qpos, points);
+                stmt = conn.prepareStatement("UPDATE AttemptQuestion SET points=? WHERE attid=? AND qposition=?");
+                stmt.setInt(1, points);
+                stmt.setInt(2, attid);
+                stmt.setInt(3, qpos);
+                stmt.executeUpdate();
+            }
+        } finally {
+            conn.close();
+        }
+        // Sum scores of AttemptQuestions
+        try {
+            conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT sum(AQ.points) FROM AttemptQuestion AQ WHERE AQ.attid=?");
+            stmt.setInt(1, attid);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int points = rs.getInt(1);
+            System.out.printf("DBG: total points: %d\n", points);
+            // Save total on Attempt
+            stmt = conn.prepareStatement("UPDATE Attempt SET points=? WHERE attid=?");
+            stmt.setInt(1, points);
+            stmt.setInt(2, attid);
+            stmt.executeUpdate();
+        } finally {
+            conn.close();
+        }
         try {
             conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE Attempt SET submittime=? WHERE attid=?");

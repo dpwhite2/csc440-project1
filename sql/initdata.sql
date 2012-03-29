@@ -98,56 +98,56 @@ INSERT INTO ExerciseQuestion VALUES (2, 'Q1');
 INSERT INTO ExerciseQuestion VALUES (2, 'Q2');
 
 -- Ssbudha HW2 Attempt 1
-INSERT INTO Attempt VALUES (1, 2, 'Ssbudha', 1, '20-MAR-2012');
+INSERT INTO Attempt VALUES (1, 2, 'Ssbudha', 1, '20-MAR-2012', 0);
 
-INSERT INTO AttemptQuestion VALUES (1, 1, 'Q1', 1, '');
+INSERT INTO AttemptQuestion VALUES (1, 1, 'Q1', 1, '', 0);
 INSERT INTO AttemptAnswer VALUES (1, 1, 1, 1);
 INSERT INTO AttemptAnswer VALUES (1, 1, 2, 4);
 INSERT INTO AttemptAnswer VALUES (1, 1, 3, 5);
 INSERT INTO AttemptAnswer VALUES (1, 1, 4, 6);
-INSERT INTO AttemptQuestion VALUES (1, 2, 'Q2', 3, '');
+INSERT INTO AttemptQuestion VALUES (1, 2, 'Q2', 3, '', 0);
 INSERT INTO AttemptAnswer VALUES (1, 2, 1, 14);
 INSERT INTO AttemptAnswer VALUES (1, 2, 2, 15);
 INSERT INTO AttemptAnswer VALUES (1, 2, 3, 11);
 INSERT INTO AttemptAnswer VALUES (1, 2, 4, 16);
 
 -- Sskanit HW1 Attempt 1
-INSERT INTO Attempt VALUES (2, 1, 'Sskanit', 1, '20-FEB-2012');
+INSERT INTO Attempt VALUES (2, 1, 'Sskanit', 1, '20-FEB-2012', 0);
 
-INSERT INTO AttemptQuestion VALUES (2, 1, 'Q3', 1, '');
+INSERT INTO AttemptQuestion VALUES (2, 1, 'Q3', 1, '', 0);
 INSERT INTO AttemptAnswer VALUES (2, 1, 1, 21);
 INSERT INTO AttemptAnswer VALUES (2, 1, 2, 24);
 INSERT INTO AttemptAnswer VALUES (2, 1, 3, 25);
 INSERT INTO AttemptAnswer VALUES (2, 1, 4, 26);
-INSERT INTO AttemptQuestion VALUES (2, 2, 'Q2', 3, '');
+INSERT INTO AttemptQuestion VALUES (2, 2, 'Q2', 3, '', 0);
 INSERT INTO AttemptAnswer VALUES (2, 2, 1, 14);
 INSERT INTO AttemptAnswer VALUES (2, 2, 2, 15);
 INSERT INTO AttemptAnswer VALUES (2, 2, 3, 12);
 INSERT INTO AttemptAnswer VALUES (2, 2, 4, 16);
 
 -- Sskanit HW1 Attempt 2
-INSERT INTO Attempt VALUES (3, 1, 'Sskanit', 2, '21-FEB-2012');
+INSERT INTO Attempt VALUES (3, 1, 'Sskanit', 2, '21-FEB-2012', 0);
 
-INSERT INTO AttemptQuestion VALUES (3, 1, 'Q2', 1, '');
+INSERT INTO AttemptQuestion VALUES (3, 1, 'Q2', 1, '', 0);
 INSERT INTO AttemptAnswer VALUES (3, 1, 1, 13);
 INSERT INTO AttemptAnswer VALUES (3, 1, 2, 19);
 INSERT INTO AttemptAnswer VALUES (3, 1, 3, 18);
 INSERT INTO AttemptAnswer VALUES (3, 1, 4, 17);
-INSERT INTO AttemptQuestion VALUES (3, 2, 'Q3', 2, '');
+INSERT INTO AttemptQuestion VALUES (3, 2, 'Q3', 2, '', 0);
 INSERT INTO AttemptAnswer VALUES (3, 2, 1, 29);
 INSERT INTO AttemptAnswer VALUES (3, 2, 2, 22);
 INSERT INTO AttemptAnswer VALUES (3, 2, 3, 28);
 INSERT INTO AttemptAnswer VALUES (3, 2, 4, 27);
 
 -- Agholak HW1 Attempt 1
-INSERT INTO Attempt VALUES (4, 1, 'Agholak', 1, '19-FEB-2012');
+INSERT INTO Attempt VALUES (4, 1, 'Agholak', 1, '19-FEB-2012', 0);
 
-INSERT INTO AttemptQuestion VALUES (4, 1, 'Q3', 4, '');
+INSERT INTO AttemptQuestion VALUES (4, 1, 'Q3', 4, '', 0);
 INSERT INTO AttemptAnswer VALUES (4, 1, 1, 21);
 INSERT INTO AttemptAnswer VALUES (4, 1, 2, 24);
 INSERT INTO AttemptAnswer VALUES (4, 1, 3, 25);
 INSERT INTO AttemptAnswer VALUES (4, 1, 4, 26);
-INSERT INTO AttemptQuestion VALUES (4, 2, 'Q2', 4, '');
+INSERT INTO AttemptQuestion VALUES (4, 2, 'Q2', 4, '', 0);
 INSERT INTO AttemptAnswer VALUES (4, 2, 1, 16);
 INSERT INTO AttemptAnswer VALUES (4, 2, 2, 15);
 INSERT INTO AttemptAnswer VALUES (4, 2, 3, 17);
