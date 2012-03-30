@@ -32,6 +32,10 @@ public class StudentAttemptSingleQuestionMenu extends Menu {
         this.nQuestions = getNumberOfQuestions();
     }
     
+    public String headerMsg() throws Exception {
+        return getQuestionText();
+    }
+    
     private int getNumberOfQuestions() throws Exception {
         Connection conn = null;
         try {
@@ -42,6 +46,23 @@ public class StudentAttemptSingleQuestionMenu extends Menu {
             // no need to check rs.next() -- count() will always return one row
             rs.next();
             return rs.getInt(1);
+        } finally {
+            conn.close();
+        }
+    }
+    
+    private String getQuestionText() throws Exception {
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT Q.* FROM Question Q, AttemptQuestion AQ WHERE AQ.attid=? AND AQ.qposition=? AND AQ.qname=Q.qname");
+            stmt.setInt(1, attid);
+            stmt.setInt(2, qposition);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                throw new RuntimeException("ERROR: Cannot find given Question");
+            }
+            return rs.getString("text");
         } finally {
             conn.close();
         }
@@ -61,6 +82,7 @@ public class StudentAttemptSingleQuestionMenu extends Menu {
                 ans.setText(rs.getString("text"));
                 answers.add(ans);
             }
+            System.out.printf("DBG: number of answers found: %d\n",answers.size());
             return answers;
         } finally {
             conn.close();
@@ -136,6 +158,8 @@ public class StudentAttemptSingleQuestionMenu extends Menu {
             }
         } else {
             // save answer
+            System.out.printf("DBG: Selected question position = %d\n", this.qposition);
+            System.out.printf("DBG: Selected answer position =   %d\n", choice.apos);
             saveSelectedAnswer(choice.apos);
             if (this.qposition < this.nQuestions) {
                 // if not at end, go to next question

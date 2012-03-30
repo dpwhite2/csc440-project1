@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
-import edu.ncsu.csc.csc440.project1.menu.StudentAttemptHomeworkSelectMenu.ExerciseMenuChoice;
-import edu.ncsu.csc.csc440.project1.objs.Attempt;
-import edu.ncsu.csc.csc440.project1.objs.AttemptFactory;
 import edu.ncsu.csc.csc440.project1.objs.AttemptQuestion;
 
 public class StudentAttemptHomeworkMenu extends Menu {
@@ -34,16 +31,22 @@ public class StudentAttemptHomeworkMenu extends Menu {
         this.attid = attid;
     }
     
+    public String headerMsg() {
+        return "Attempt Homework";
+    }
+    
     private ArrayList<AttemptQuestion> getQuestions() throws Exception {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM AttemptQuestion AQ WHERE AQ.attid=? ORDER BY AQ.qposition ASC");
+            PreparedStatement stmt = conn.prepareStatement("SELECT AQ.*, Q.text FROM AttemptQuestion AQ, Question Q WHERE AQ.attid=? AND AQ.qname=Q.qname ORDER BY AQ.qposition ASC");
             stmt.setInt(1, attid);
             ResultSet rs = stmt.executeQuery();
             ArrayList<AttemptQuestion> questions = new ArrayList<AttemptQuestion>();
             while (rs.next()) {
-                questions.add(new AttemptQuestion(rs));
+                AttemptQuestion aq = new AttemptQuestion(rs);
+                aq.setQuestionText(rs.getString("text"));
+                questions.add(aq);
             }
             return questions;
         } finally {
@@ -60,7 +63,7 @@ public class StudentAttemptHomeworkMenu extends Menu {
         for (int i=0; i<questions.size(); i++) {
             AttemptQuestion q = questions.get(i);
             String shortcut = String.valueOf(i+1);
-            String label = "Question " + String.valueOf(i+1);
+            String label = q.getText();
             choices[i] = new AttemptHomeworkMenuChoice(shortcut, label, q.getAttid(), q.getQposition());
         }
         choices[questions.size()] = new MenuChoice("S", "Submit");

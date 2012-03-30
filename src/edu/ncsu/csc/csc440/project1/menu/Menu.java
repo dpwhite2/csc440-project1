@@ -47,8 +47,9 @@ public abstract class Menu {
     
     /**
     * Subclasses can override this to provide a heading to the menu.
+     * @throws Exception 
     */
-    public String headerMsg() {
+    public String headerMsg() throws Exception {
         return null;
     }
     
@@ -74,6 +75,7 @@ public abstract class Menu {
     public void menuLoop() throws Exception {
         while (true) {
             System.out.println(""); // blank line between menus
+            System.out.println("------------------------------------------------------------");
             String header = headerMsg();
             if (header != null) {
                 System.out.printf("%s\n", header);
@@ -83,6 +85,7 @@ public abstract class Menu {
                 throw new RuntimeException("getChoices() returned empty list of choices.");
             }
             displayChoices(choices);
+            System.out.println(""); // blank line after choices
             
             // Get the user's menu choice
             MenuChoice choice = null;

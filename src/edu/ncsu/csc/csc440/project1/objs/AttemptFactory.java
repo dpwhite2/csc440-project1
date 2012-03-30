@@ -58,6 +58,7 @@ public class AttemptFactory {
     private ArrayList<Question> chooseQuestions(int n) throws Exception {
         // get all questions for this exercise
         ArrayList<Question> allQuestions = getAllQuestions();
+        System.out.printf("DBG: length of allQuestions: %d\n", allQuestions.size());
         // randomly choose N different questions
         if (n > allQuestions.size()) {
             throw new RuntimeException("Not enough questions to generate attempt!");
@@ -113,7 +114,7 @@ public class AttemptFactory {
     }
     
     private Attempt createAttempt() throws Exception {
-        System.out.printf("Creating attempt...\n");
+        System.out.printf("DBG: Creating attempt...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -146,7 +147,7 @@ public class AttemptFactory {
     }
     
     private AttemptQuestion createAttemptQuestion(Attempt att, Question ques, int qpos) throws Exception {
-        System.out.printf("Creating attempt question...\n");
+        System.out.printf("DBG: Creating attempt question...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -164,7 +165,7 @@ public class AttemptFactory {
     }
     
     private AttemptAnswer createAttemptAnswer(AttemptQuestion attques, Answer ans, int qpos, int apos) throws Exception {
-        System.out.printf("Creating attempt answer...\n");
+        System.out.printf("DBG: Creating attempt answer...\n");
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -183,7 +184,7 @@ public class AttemptFactory {
     
     public Attempt create() throws Exception {
         Attempt att = createAttempt();
-        System.out.printf("Attempt.attid = %d\n",att.getAttid());
+        System.out.printf("DBG: Attempt.attid = %d\n",att.getAttid());
         // choose questions
         Exercise ex = getExercise();
         ArrayList<Question> questions = chooseQuestions(ex.getQuestionCount());

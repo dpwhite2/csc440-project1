@@ -29,11 +29,13 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 		this.cid = cid;
 	}
 	
+	public String headerMsg() {
+        return "Available Homeworks";
+    }
+	
 	private ArrayList<Exercise> getAttemptReadyHomeworks() throws Exception {
 	    String query = 
-	            "SELECT E.eid, E.cid, E.ename, E.startdate, E.enddate, "
-	                 + "E.correct_points, E.penalty_points, E.seed, "
-	                 + "E.score_method, E.maximum_attempts "
+	            "SELECT E.* "
 	            + "FROM Exercise E "
 	            + "WHERE E.startdate < ? AND ? < E.enddate AND E.cid=? "
 	            + "AND (( "
@@ -86,8 +88,8 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 	    
 	    for (int i=0; i<exercises.size(); i++) {
 	        Exercise ex = exercises.get(i);
-	        String label = ex.getEname();
-	        int eid = ex.getEid();
+            int eid = ex.getEid();
+	        String label = ex.getEname() + "  [DBG: eid=" + String.valueOf(eid) + "]";
 	        choices[i] = new ExerciseMenuChoice(String.valueOf(i+1), label, eid);
 	    }
 	    
@@ -123,6 +125,7 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 		    // assume choice refers to valid exercise
 		    ExerciseMenuChoice choice = (ExerciseMenuChoice)choice_;
 		    int eid = choice.eid;
+		    System.out.printf("DBG: Chosen eid=%d\n", eid);
 		    int attid = getOpenAttemptId(eid);
 		    if (attid == -1) {
 		        System.out.printf("DBG: Generating new Attempt...\n");
@@ -130,7 +133,7 @@ public class StudentAttemptHomeworkSelectMenu extends Menu {
 		        AttemptFactory factory = new AttemptFactory(eid, sid);
 		        Attempt att = factory.create();
 		        attid = att.getAttid();
-		        System.out.printf("attid = %d\n",attid);
+		        System.out.printf("DBG: attid = %d\n",attid);
 		    }
 		    StudentAttemptHomeworkMenu menu = new StudentAttemptHomeworkMenu(sid, cid, attid);
 		    menu.menuLoop();

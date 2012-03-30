@@ -26,6 +26,10 @@ public class StudentMenu extends Menu{
 		this.sid = id;
 	}
 	
+	public String headerMsg() {
+        return "Student Menu";
+    }
+	
 	public MenuChoice[] getChoices() {
         MenuChoice[] menuChoices = {
             new MenuChoice("S", "Select Course"),
@@ -65,7 +69,7 @@ public class StudentMenu extends Menu{
             stmt.setString(1, token);
             ResultSet rs = stmt.executeQuery();
             if (!rs.next()) {
-                System.out.printf("Course token not found.\n");
+                System.out.printf("ERROR: Course token not found.\n");
                 return null;
             } else {
                 return new Course(rs);
@@ -115,10 +119,10 @@ public class StudentMenu extends Menu{
             Date now = new Date();
             // if course is after registration date, print error
             if (!course.getStartDate().before(now) || !course.getEndDate().after(now)) {
-                System.out.printf("Course is not open for registration.\n");
+                System.out.printf("ERROR: Course is not open for registration.\n");
                 return;
             } else if (isStudentRegistered(course.getCid()) == true) {
-                System.out.printf("Student is already registered in this class.\n");
+                System.out.printf("ERROR: Student is already registered in this class.\n");
                 return;
             } else {
                 // else, add student to course.

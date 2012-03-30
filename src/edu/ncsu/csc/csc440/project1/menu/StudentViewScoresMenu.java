@@ -54,6 +54,10 @@ public class StudentViewScoresMenu extends Menu {
 		this.cid = cid;
 	}
 	
+	public String headerMsg() {
+        return "Submitted Homework Scores";
+    }
+	
 	private ArrayList<Exercise> getExercises() throws Exception {
 	    Connection conn = null;
 	    try {
