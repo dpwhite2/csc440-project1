@@ -24,7 +24,7 @@ public class ProfShowStudentGrades {
 	}
 	
 	public boolean run(){
-		String[] students;
+		String[] students = new String[0];
 		try{
 			Connection conn = DBConnection.getConnection();
 			//get number of students enrolled in this course
@@ -38,13 +38,13 @@ public class ProfShowStudentGrades {
 	        	System.out.println("There are "+(students.length)+" students enrolled in this course.");
 
 	        	//Get list of student usernames
-	        	PreparedStatement stmt2 = conn.prepareStatement("SELECT S.userid FROM Student S, Enrolled E, Course C WHERE (C.token = ?) AND " +
+	        	PreparedStatement stmt2 = conn.prepareStatement("SELECT S.sid FROM Student S, Enrolled E, Course C WHERE (C.token = ?) AND " +
 	        	"(E.sid = S.sid) AND (C.cid = E.cid)");
 	        	stmt2.setString(1, this.cToken);
 	        	rs = stmt2.executeQuery();
 	        	int i = 0;
 	        	while (rs.next()) {
-	        		students[i] = rs.getString("userid");
+	        		students[i] = rs.getString("sid");
 	        		i++;
 	        	}
 	        }
@@ -56,8 +56,30 @@ public class ProfShowStudentGrades {
 		catch(Exception e){
 			System.out.println("Problem in getting list of students for ProfShowStudentGrades: "+ e.getMessage());
 		}
+		
+		// TODO - group attempts by assignment and show final grade for each assignment
 		//for each student, print out Homework name, student score
-			
+		for(int x = 0; x<students.length;x++){
+			System.out.println("---" + students[x] + " ---");
+			try{
+				Connection conn = DBConnection.getConnection();
+				//Get list of homework attempts for each student
+				PreparedStatement stmt = conn.prepareStatement("SELECT E.ename, A.points " +
+						"FROM Attempt A JOIN Exercise E ON E.eid = A.eid JOIN Course C ON C.cid = E.cid " +
+						"WHERE (A.sid = ?) AND (C.token =?)");
+				stmt.setString(1, students[x]);
+				stmt.setString(2, this.cToken);
+				ResultSet rs = stmt.executeQuery();
+				int i = 0;
+				while (rs.next()) {
+					System.out.println(rs.getString("ename") + " | " + rs.getString("points"));
+				}
+			}
+			catch(Exception e){
+				System.out.println("Problem in getting list of homework and scores for students for ProfShowStudentGrades: "+ e.getMessage());
+			}
+	
+		}	
 		return false;
 	}
 }
