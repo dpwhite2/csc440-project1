@@ -41,7 +41,8 @@ public class ProfReportsMenu extends Menu{
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("Q")){
-			//ProfQuery
+			ProfQuery queryMenu = new ProfQuery(this.pid, this.cToken);
+			queryMenu.run();
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("X")){

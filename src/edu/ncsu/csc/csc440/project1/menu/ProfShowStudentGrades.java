@@ -13,7 +13,7 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
  * @author Allison
  *
  */
-public class ProfShowStudentGrades {
+public class ProfShowStudentGrades{
 	
 	private int pid;
 	private String cToken;
