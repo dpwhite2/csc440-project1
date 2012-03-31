@@ -33,7 +33,8 @@ public class ProfReportsMenu extends Menu{
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("S")){
-			//ProfShowHomeworkScores
+			ProfShowHomeworkScores scoreMenu = new ProfShowHomeworkScores(this.pid, this.cToken);
+			scoreMenu.run();
 			this.menuLoop();
 		}
 		else if(choice.shortcut.equals("A")){
