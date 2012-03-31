@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
+import edu.ncsu.csc.csc440.project1.db.ExerciseDAO;
+import edu.ncsu.csc.csc440.project1.db.QuestionDAO;
 
 public class AttemptFactory {
     
@@ -21,7 +23,8 @@ public class AttemptFactory {
     }
     
     private Exercise getExercise() throws Exception {
-        Connection conn = null;
+        return ExerciseDAO.getExerciseByEid(eid);
+        /*Connection conn = null;
         try {
             conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT E.* FROM Exercise E WHERE E.eid=?");
@@ -33,12 +36,13 @@ public class AttemptFactory {
             return new Exercise(rs);
         } finally {
             conn.close();
-        }
+        }*/
     }
     
     private ArrayList<Question> getAllQuestions() throws Exception {
+        return QuestionDAO.getQuestionsForEid(eid);
         // get all questions for this exercise
-        Connection conn = null;
+        /*Connection conn = null;
         try {
             conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT Q.* FROM Question Q, ExerciseQuestion EQ WHERE EQ.eid=? AND Q.qname=EQ.qname");
@@ -51,7 +55,7 @@ public class AttemptFactory {
             return questions;
         } finally {
             conn.close();
-        }
+        }*/
     }
     
     // randomly select the questions from the exercise
