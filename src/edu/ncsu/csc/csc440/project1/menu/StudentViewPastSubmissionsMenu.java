@@ -27,7 +27,7 @@ public class StudentViewPastSubmissionsMenu extends Menu {
 	}
 	
 	private ArrayList<Attempt> getAttempts() throws Exception {
-	    String s = "SELECT A.* FROM Attempt A, Exercise E "
+	    String s = "SELECT A.*, E.ename FROM Attempt A, Exercise E "
 	             + "WHERE A.submittime IS NOT NULL AND A.sid=? AND A.eid=E.eid AND E.cid=?";
 	    Connection conn = null;
 	    try {
@@ -38,7 +38,9 @@ public class StudentViewPastSubmissionsMenu extends Menu {
 	        ResultSet rs = stmt.executeQuery();
 	        ArrayList<Attempt> attempts = new ArrayList<Attempt>();
 	        while (rs.next()) {
-	            attempts.add(new Attempt(rs));
+	            Attempt a = new Attempt(rs);
+	            a.setEname(rs.getString("ename"));
+	            attempts.add(a);
 	        }
 	        return attempts;
 	    } finally {
@@ -54,7 +56,7 @@ public class StudentViewPastSubmissionsMenu extends Menu {
 	    MenuChoice[] choices = new MenuChoice[attempts.size() + 1];
 	    for (int i=0; i<attempts.size(); i++) {
 	        Attempt att = attempts.get(i);
-            String label = "Attempt " + String.valueOf(i+1);
+            String label = String.format("Homework %s (Attempt %d)", att.getEname(), i+1);
             int attid = att.getAttid();
 	        choices[i] = new PastAttemptsMenuChoice(String.valueOf(i+1), label, attid);
 	    }
@@ -74,5 +76,4 @@ public class StudentViewPastSubmissionsMenu extends Menu {
 		    return true;
 		}
 	}
-
 }

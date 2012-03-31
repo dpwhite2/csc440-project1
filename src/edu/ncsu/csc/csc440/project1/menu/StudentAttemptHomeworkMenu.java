@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Date;
 
+import edu.ncsu.csc.csc440.project1.db.AttemptAnswerDAO;
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
+import edu.ncsu.csc.csc440.project1.db.ExerciseDAO;
 import edu.ncsu.csc.csc440.project1.objs.AttemptAnswer;
 import edu.ncsu.csc.csc440.project1.objs.AttemptQuestion;
 import edu.ncsu.csc.csc440.project1.objs.Exercise;
@@ -37,7 +39,7 @@ public class StudentAttemptHomeworkMenu extends Menu {
         return "Attempt Homework";
     }
     
-    private ArrayList<AttemptQuestion> getQuestions() throws Exception {
+    private ArrayList<AttemptQuestion> getAttemptQuestions() throws Exception {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
@@ -60,7 +62,7 @@ public class StudentAttemptHomeworkMenu extends Menu {
     public MenuChoice[] getChoices() throws Exception {
         System.out.printf("DBG: getChoices(): attid = %d\n",attid);
         // Get all questions
-        ArrayList<AttemptQuestion> questions = getQuestions();
+        ArrayList<AttemptQuestion> questions = getAttemptQuestions();
         MenuChoice[] choices = new MenuChoice[questions.size() + 2];
         for (int i=0; i<questions.size(); i++) {
             AttemptQuestion q = questions.get(i);
@@ -74,58 +76,11 @@ public class StudentAttemptHomeworkMenu extends Menu {
     }
     
     private Exercise getExercise() throws Exception {
-        Connection conn = null;
-        try {
-            conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT E.* FROM Exercise E, Attempt AT WHERE E.eid=AT.eid AND AT.attid=?");
-            stmt.setInt(1, attid);
-            ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
-                throw new RuntimeException("Cannot find Exercise.");
-            }
-            return new Exercise(rs);
-        } finally {
-            conn.close();
-        }
-    }
-    
-    private ArrayList<AttemptQuestion> getAttemptQuestions() throws Exception {
-        Connection conn = null;
-        try {
-            conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT AQ.* FROM AttemptQuestion AQ WHERE AQ.attid=? ORDER BY AQ.qposition ASC");
-            stmt.setInt(1, attid);
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<AttemptQuestion> questions = new ArrayList<AttemptQuestion>();
-            while (rs.next()) {
-                AttemptQuestion q = new AttemptQuestion(rs);
-                questions.add(q);
-            }
-            return questions;
-        } finally {
-            conn.close();
-        }
+        return ExerciseDAO.getExerciseForAttempt(attid);
     }
     
     private ArrayList<AttemptAnswer> getAttemptAnswers(int qposition) throws Exception {
-        Connection conn = null;
-        try {
-            conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT AA.*, A.text, A.correct FROM AttemptAnswer AA, Answer A WHERE AA.attid=? AND AA.qposition=? AND AA.ansid=A.ansid ORDER BY AA.aposition");
-            stmt.setInt(1, attid);
-            stmt.setInt(2, qposition);
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<AttemptAnswer> answers = new ArrayList<AttemptAnswer>();
-            while (rs.next()) {
-                AttemptAnswer ans = new AttemptAnswer(rs);
-                ans.setText(rs.getString("text"));
-                ans.setCorrect(rs.getBoolean("correct"));
-                answers.add(ans);
-            }
-            return answers;
-        } finally {
-            conn.close();
-        }
+        return AttemptAnswerDAO.getAttemptAnswersAndText(attid, qposition);
     }
     
     private void writeAttemptQuestionScore(int qposition, int score) throws Exception {

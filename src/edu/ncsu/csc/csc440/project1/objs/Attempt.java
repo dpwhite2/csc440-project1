@@ -11,6 +11,8 @@ public class Attempt {
 	private int attnum;
 	private Date submitTime;
 	private int points;
+	// The following comes from the Exercise
+	private String ename = "";
 	
 	public Attempt() {
 		this.attid = -1;
@@ -57,6 +59,13 @@ public class Attempt {
 	}
     public int getPoints() {
         return points;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
+    public String getEname() {
+        return ename;
     }
 	
 }
