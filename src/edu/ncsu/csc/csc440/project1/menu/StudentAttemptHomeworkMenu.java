@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
 import edu.ncsu.csc.csc440.project1.objs.AttemptQuestion;
+import edu.ncsu.csc.csc440.project1.objs.Exercise;
 
 public class StudentAttemptHomeworkMenu extends Menu {
 
@@ -70,6 +71,27 @@ public class StudentAttemptHomeworkMenu extends Menu {
         choices[questions.size() + 1] = new MenuChoice("X", "Back");
         return choices;
     }
+    
+    /*private Exercise getExercise() throws Exception {
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT E.* FROM Exercise E, Attempt AT WHERE E.eid=AT.eid AND AT.attid=?");
+            stmt.setInt(1, attid);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                throw new RuntimeException("Cannot find Exercise.");
+            }
+            Exercise e = new Exercise(rs);
+            e.setCorrect(rs.getBoolean("correct"));
+        } finally {
+            conn.close();
+        }
+    }
+    
+    private ArrayList<AttemptAnswer> getAttemptAnswers(int qposition) throws Exception {
+        
+    }*/
     
     private void submitAttempt() throws Exception {
         Connection conn = null;

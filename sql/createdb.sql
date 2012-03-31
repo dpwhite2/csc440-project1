@@ -145,6 +145,7 @@ CREATE TABLE Attempt (
     points          INTEGER         DEFAULT 0,
     PRIMARY KEY (attid),
     UNIQUE (eid, sid, attnum),
+    CONSTRAINT attempt_attnum_constraint CHECK (0 < attnum),
     FOREIGN KEY (eid) REFERENCES Exercise,
     FOREIGN KEY (sid) REFERENCES Student
 );
@@ -160,6 +161,8 @@ CREATE TABLE AttemptQuestion (
     justification   VARCHAR2(1000)      DEFAULT '',
     points          INTEGER         DEFAULT 0,
     PRIMARY KEY (attid, qposition),
+    CONSTRAINT attquestion_qpos_constraint CHECK (0 < qposition),
+    CONSTRAINT attquestion_cap_constraint CHECK ((0 < chosen_answer_pos) OR (chosen_answer_pos IS NULL)),
     FOREIGN KEY (attid) REFERENCES Attempt,
     FOREIGN KEY (qname) REFERENCES Question
 );
@@ -170,6 +173,7 @@ CREATE TABLE AttemptAnswer (
     aposition       INTEGER         NOT NULL,
     ansid           INTEGER         NOT NULL,
     PRIMARY KEY (attid, qposition, aposition),
+    CONSTRAINT attanswer_apos_constraint CHECK (0 < aposition),
     FOREIGN KEY (attid, qposition) REFERENCES AttemptQuestion,
     FOREIGN KEY (ansid) REFERENCES Answer
 );

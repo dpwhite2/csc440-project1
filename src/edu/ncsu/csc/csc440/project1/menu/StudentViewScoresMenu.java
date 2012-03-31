@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import edu.ncsu.csc.csc440.project1.db.DBConnection;
 import edu.ncsu.csc.csc440.project1.objs.Exercise;
+import edu.ncsu.csc.csc440.project1.objs.ExerciseInfo;
 
 public class StudentViewScoresMenu extends Menu {
     
@@ -18,7 +19,7 @@ public class StudentViewScoresMenu extends Menu {
         }
     }
     
-    class ExerciseInfo {
+    /*class ExerciseInfo {
         public String name;
         public int score;
         public int possibleScore;
@@ -44,7 +45,7 @@ public class StudentViewScoresMenu extends Menu {
             this.submissionMax = submissionMax;
             this.eid = eid;
         }
-    }
+    }*/
 	
 	private String sid;
 	private String cid;
@@ -75,7 +76,7 @@ public class StudentViewScoresMenu extends Menu {
 	    }
 	}
 	
-	private int scoreFirstAttempt(ArrayList<Integer> scores) {
+	/*private int scoreFirstAttempt(ArrayList<Integer> scores) {
 	    return scores.get(0).intValue();
 	}
     private int scoreLastAttempt(ArrayList<Integer> scores) {
@@ -144,7 +145,7 @@ public class StudentViewScoresMenu extends Menu {
 	    } finally {
 	        conn.close();
 	    }
-	}
+	}*/
 
 	@Override
 	public MenuChoice[] getChoices() throws Exception {
@@ -155,18 +156,18 @@ public class StudentViewScoresMenu extends Menu {
 	    // for each exercise, show: name, score, submission count, submissions remaining
 	    ArrayList<ExerciseInfo> infos = new ArrayList<ExerciseInfo>();
 	    for (Exercise ex: exercises) {
-	        infos.add(getExerciseInfo(ex));
+	        infos.add(ExerciseInfo.getExerciseInfo(ex.getEid(), sid));
 	    }
 	    MenuChoice[] choices = new MenuChoice[infos.size() + 1];
 	    for (int i=0; i<infos.size(); i++) {
 	        ExerciseInfo info = infos.get(i);
 	        String shortcut = String.valueOf(i+1);
 	        String label = String.format("%s -- %d/%d -- submissions: %d/%d", 
-	                                     info.name, info.score, 
-	                                     info.possibleScore, 
-	                                     info.submissionCount,
-	                                     info.submissionMax);
-	        choices[i] = new StudentViewScoresMenuChoice(shortcut, label, info.eid);
+	                                     info.getName(), info.getScore(), 
+	                                     info.getPossibleScore(), 
+	                                     info.getSubmissionCount(),
+	                                     info.getSubmissionMax());
+	        choices[i] = new StudentViewScoresMenuChoice(shortcut, label, info.getEid());
 	    }
 	    choices[infos.size()] = new MenuChoice("X", "Back");
 		return choices;
