@@ -124,7 +124,7 @@ public class AttemptFactory {
             stmt.setString(2, sid);
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            int attnum = rs.getInt(1);
+            int attnum = rs.getInt(1) + 1;
             
             // Store attempt record
             String s = "INSERT INTO Attempt VALUES (attempt_ids.nextval, ?, ?, ?, NULL, 0)";

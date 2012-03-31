@@ -7,7 +7,9 @@ public class AttemptAnswer {
     private int qposition;
     private int aposition;
     private int ansid;
+    // The following comes from Answer
     private String text = "";
+    private boolean correct = false;
 
     public AttemptAnswer() {
         this.attid = -1;
@@ -35,6 +37,13 @@ public class AttemptAnswer {
     }
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public int getAttid() {

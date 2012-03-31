@@ -95,4 +95,8 @@ public class Exercise {
     public int getQuestionCount() {
         return questionCount;
     }
+    
+    public int getPossibleScore() {
+        return correctPoints * questionCount;
+    }
 }
