@@ -176,18 +176,26 @@ public class StartMenu extends Menu {
         stmt = conn.prepareStatement("SELECT userinfo_ids.currval FROM dual");
         ResultSet rs = stmt.executeQuery();
         if (!rs.next()) {
-            // TODO: error
             System.out.printf("ERROR: Could not retrieve new key.\n");
             return;
         }
         int userid = rs.getInt(1);
         
         if (role.equals("student")) {
-            // TODO
+            System.out.print("The student's student id: ");
+            String sid = scan.nextLine();
+            stmt = conn.prepareStatement("INSERT INTO Student VALUES (?,?)");
+            stmt.setString(1, sid);
+            stmt.setInt(2, userid);
+            stmt.executeUpdate();
+            
+            System.out.printf("\nAdded new student: %s\n", sid);
         } else if (role.equals("prof")) {
             stmt = conn.prepareStatement("INSERT INTO Professor VALUES (professor_ids.nextval,?)");
             stmt.setInt(1, userid);
             stmt.executeUpdate();
+
+            System.out.printf("\nAdded new professor: %s\n", username);
         } else {
             System.out.printf("ERROR: Unknown role!\n");
         }
