@@ -35,17 +35,34 @@ public class ProfAddHomework{
 	
 	public boolean run() throws Exception{
 		
-		String answer = promptUser(prompt);
+		
 		
 		try{
-			Scanner scan = new Scanner(answer);
-			String ename = scan.next();
-			String start = scan.next();
-			String end = scan.next();
-			int allowedAttempts = scan.nextInt();
-			String scoreScheme = scan.next();
-			int correctPts = scan.nextInt();
-			int incorrectPts = scan.nextInt();
+			String ename = promptUser("What is the name of the homework?\n");
+			String start = promptUser("What is the start date for the homework? Please use form: mm/dd/yyyy\n");
+			String end = promptUser("What is the end date for the homework? Please use form: mm/dd/yyyy\n");
+			int allowedAttempts = validateInteger(promptUser("How many attemps are allowed for this homework?\n"));
+			while(allowedAttempts == -1){
+				allowedAttempts = validateInteger(promptUser("Sorry, that is not a valid number. Please try again. \n\n" +
+						"How many attemps are allowed for this homework?\n"));
+			}
+			String scoreScheme = promptUser("What is the scoring scheme for this homework? Please choose from:\n" +
+					"'first attempt', 'last attempt', 'average', or 'max'\n");
+			while(!validateScoreMethod(scoreScheme)){
+				scoreScheme = promptUser("Sorry, your answer is not valid. Please try again. \n\n" +
+						"What is the scoring scheme for this homework? Please choose from:\n" +
+				"'first attempt', 'last attempt', 'average', or 'max'\n");
+			}
+			int correctPts = validateInteger(promptUser("How many points should be given for a correct answer?\n"));
+			while(correctPts == -1){
+				correctPts = validateInteger(promptUser("Sorry, that is not a valid number. Please try again. \n\n" +
+						"How many points should be givin for a correct answer?\n"));
+			}
+			int incorrectPts = validateInteger(promptUser("How many points should be deducted for an incorrect answer?\n"));
+			while(incorrectPts == -1){
+				incorrectPts = validateInteger(promptUser("Sorry, that is not a valid number. Please try again. \n\n" +
+				"How many points should be deducted for an incorrect answer?\n"));
+			}
 			
 			//make seed
 			Date ran = new Date();
@@ -142,5 +159,29 @@ public class ProfAddHomework{
         
 	}
 	
+	private boolean validateScoreMethod(String response){
+		if(response.equals("first attempt"))return true;
+		else if (response.equals("last_attempt")) return true;
+		else if (response.equals("average")) return true;
+		else if (response.equals("max")) return true;
+		else{
+			return false;
+		}
+		
+	}
+	
+	private int validateInteger(String response){
+		try{
+			int num = Integer.parseInt(response);
+			if(num >= 0) return num;
+			else{
+				return -1;
+			}
+		}
+		catch(Exception e){
+			return -1;
+		}
+		
+	}
 	
 }
