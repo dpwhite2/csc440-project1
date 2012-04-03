@@ -53,7 +53,7 @@ INSERT INTO Enrolled VALUES ('CSC440', 'Rjoseph');
 INSERT INTO Enrolled VALUES ('CSC501', 'Agholak');
 
 INSERT INTO Exercise VALUES (1, 'CSC440', 'HW1', '12-FEB-2012', '01-MAR-2012', 3, 1, 0, 'first attempt', 3, 2);
-INSERT INTO Exercise VALUES (2, 'CSC440', 'HW2', '12-MAR-2012', '01-APR-2012', 5, 2, 0, 'average', 2, 2);
+INSERT INTO Exercise VALUES (2, 'CSC440', 'HW2', '12-MAR-2012', '05-APR-2012', 5, 2, 0, 'average', 2, 2);
 
 INSERT INTO Question VALUES ('Q1', 'Question 1', 1, 'HINT', -1, -1, 'EXPLANATION');
 INSERT INTO Question VALUES ('Q2', 'Question 2', 1, 'HINT', -1, -1, 'EXPLANATION');
