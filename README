@@ -3,19 +3,27 @@ CSC 440 Project 1
 Allison Hamann (alhamann)
 David White (dpwhite2)
 
+
 Project Contents:
+
     Source code: 
         src/edu/ncsu/csc/csc440/project1/
+        
     ER Diagram:
-        TODO
+        ER-Model.png
+        
     README: 
         this file
+        
     Create table SQL script:
         sql/createdb.sql
+        
     Table population SQL script:
         sql/initdata.sql
+        
     Sample SQL queries:
         sql/queries.sql
+
 
 Constraints not captured by program:
     TODO
