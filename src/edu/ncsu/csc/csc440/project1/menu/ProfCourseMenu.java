@@ -32,7 +32,6 @@ public class ProfCourseMenu extends Menu{
 
 	
 	public boolean onChoice(MenuChoice choice) throws Exception{
-		// TODO finish
 		if(choice.shortcut.equals("A")){
 			ProfAddHomework addMenu = new ProfAddHomework(this.pid,this.cToken);
 			while(!addMenu.run());

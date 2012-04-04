@@ -10,9 +10,6 @@ package edu.ncsu.csc.csc440.project1.menu;
  */
 public class ProfessorMenu extends Menu{
 
-	private String promptText; //might not need this?
-	private MenuChoice[] menuChoices;
-
 	private int pid;
 	
 	public ProfessorMenu(int id){
@@ -28,9 +25,7 @@ public class ProfessorMenu extends Menu{
 		return menuChoices;
 	}
 
-	/* (non-Javadoc)
-	 * @see Menu#onChoice(MenuChoice)
-	 */
+	
 	public boolean onChoice(MenuChoice choice) throws Exception {
 
 		if(choice.shortcut.equals("S")){
