@@ -76,8 +76,8 @@ public class ProfEditHomeworkMenu {
 	        
 	        try{
 				ename = promptUser("Homework name: ");
-	            startDate = convertToDate(promptUser("Homework start date (mm/dd/yyy): "));
-	            endDate = convertToDate(promptUser("Homework end date (mm/dd/yyy): "));
+	            startDate = convertToDate(promptUser("Homework start date (mm/dd/yyyy): "));
+	            endDate = convertToDate(promptUser("Homework end date (mm/dd/yyyy): "));
 	            maxAttempts = validateInteger(promptUser("Maximum attempts: "));
 	            while(maxAttempts < 0){
 	            	maxAttempts = validateInteger(promptUser("Sorry, your number is not valid. Please try again." +
@@ -124,7 +124,6 @@ public class ProfEditHomeworkMenu {
 				//if added successfully, print line and return true
 				if(success == 1){
 					System.out.println("Exercise updated successfully.");
-					return true;
 				}
 				//if not added successfully, return false
 				else{
@@ -142,6 +141,55 @@ public class ProfEditHomeworkMenu {
 		catch(Exception e){
 			System.out.println(""+ e.getMessage());
 		}
+		
+		try{
+			String ans = promptUser("Do you want to edit this homework's questions? (y/n)\n");
+			if(ans.equals("n")) return false;
+			else{
+				Connection conn = DBConnection.getConnection();
+				PreparedStatement stmt1 = conn.prepareStatement("SELECT E.qname FROM ExerciseQuestion E WHERE E.eid= ?");
+				stmt1.setInt(1, this.eid);
+		        ResultSet rs = stmt1.executeQuery();
+		        System.out.println("\nQuestions currently in this homework: ");
+		        while(rs.next()){
+		        	System.out.println(rs.getString("qname"));
+		        }
+		        
+		        PreparedStatement stmt2 = conn.prepareStatement("SELECT E.qname FROM ExerciseQuestion E");
+		        rs = stmt2.executeQuery();
+		        System.out.println("\nAll questions: ");
+		        while(rs.next()){
+		        	System.out.println(rs.getString("qname"));
+		        }		
+		        
+		        String addQ = promptUser("Type question name to add it to this homework, or 'X' to leave: ");
+		        if(addQ.equals("X")) return false;
+				int success = 0;
+				try{
+					conn = DBConnection.getConnection();
+					Statement stmt3 = conn.createStatement();
+					success = stmt3.executeUpdate("INSERT INTO ExerciseQuestion VALUES ("+this.eid+", '"+addQ+"')");
+					//if added successfully, print line and return true
+					if(success == 1){
+						System.out.println("Question added to exercise successfully.");
+						return false;
+					}
+					//if not added successfully, return false
+					else{
+						System.out.println("Sorry, we could not add this question to the exercise, please try again.");
+						return false;
+					}
+					
+				}
+				catch(Exception e){
+					System.out.println("Error adding questions:" + e );
+				}
+			}
+		}
+		catch(Exception e){
+			System.out.println("Error adding questions:" + e );
+		}
+		
 		
 		return false;
 	}
