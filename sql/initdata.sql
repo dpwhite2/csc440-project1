@@ -140,9 +140,9 @@ INSERT INTO AttemptAnswer VALUES (3, 2, 3, 28);
 INSERT INTO AttemptAnswer VALUES (3, 2, 4, 27);
 
 -- Agholak HW1 Attempt 1
-INSERT INTO Attempt VALUES (4, 1, 'Agholak', 1, '19-FEB-2012', 2);
+INSERT INTO Attempt VALUES (4, 1, 'Agholak', 1, '19-FEB-2012', 6);
 
-INSERT INTO AttemptQuestion VALUES (4, 1, 'Q3', 4, '', -1);
+INSERT INTO AttemptQuestion VALUES (4, 1, 'Q3', 1, '', 3);
 INSERT INTO AttemptAnswer VALUES (4, 1, 1, 21);
 INSERT INTO AttemptAnswer VALUES (4, 1, 2, 24);
 INSERT INTO AttemptAnswer VALUES (4, 1, 3, 25);
