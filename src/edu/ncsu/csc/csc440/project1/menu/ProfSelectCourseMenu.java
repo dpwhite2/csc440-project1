@@ -21,23 +21,18 @@ import edu.ncsu.csc.csc440.project1.db.DBConnection;
 public class ProfSelectCourseMenu extends Menu {
 	
 	private int pid;
-	private String promptText; //might not need this?
 	private MenuChoice[] menuChoices;
 	
 	public ProfSelectCourseMenu(int id){
 		this.pid = id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see Menu#getChoices()
-	 */
 	public MenuChoice[] getChoices() {
 	
 		try{
 		//find all courses this Professor teaches
 		Connection conn = DBConnection.getConnection();
 		//get number of course he/she teaches
-		System.out.println("---PID is: "+ this.pid);
 		PreparedStatement stmt1 = conn.prepareStatement("SELECT COUNT(*) FROM Course WHERE pid=?");
 		stmt1.setInt(1, this.pid);
         ResultSet rs = stmt1.executeQuery();

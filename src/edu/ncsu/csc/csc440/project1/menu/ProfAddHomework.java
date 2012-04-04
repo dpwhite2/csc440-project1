@@ -20,13 +20,6 @@ public class ProfAddHomework{
 	
 	private int pid;
 	private String cToken;
-	private String prompt = "Please enter data for new homework with the following fields:\n" +
-			"<name of homework> <start date> <end date> <number of attempts allowed>\n" +
-			"<score selection scheme> <points for correct answer> <points deducted for incorrect answer>";
-	
-	/*public enum ScoreScheme{
-	    LATEST_ATTEMPT, MAXIMUM_SCORE, AVERAGE_SCORE 
-	}*/
 	
 	public ProfAddHomework(int profID, String courseToken){
 		this.pid = profID;
@@ -34,8 +27,6 @@ public class ProfAddHomework{
 	}
 	
 	public boolean run() throws Exception{
-		
-		
 		
 		try{
 			String ename = promptUser("What is the name of the homework?\n");
@@ -69,7 +60,7 @@ public class ProfAddHomework{
 			String timeString = Long.toString(ran.getTime());
 			String lastChar = timeString.substring(timeString.length()-1);
 			int seed = Integer.parseInt(lastChar);
-			System.out.println("----The seed is: " +seed);
+			//System.out.println("----The seed is: " +seed);
 			
 			//convert start & end into oracle TIMESTAMP format
 			String startTimestamp = convertToTimestamp(start);
@@ -83,7 +74,7 @@ public class ProfAddHomework{
 			// TODO write correct INSERT
 			String query = "INSERT INTO Exercise VALUES (exercise_ids.nextval, '"+cid+"', '"+ename+"', timestamp'" +
 					""+startTimestamp+"', timestamp'"+endTimestamp+"', "+correctPts+", "+incorrectPts+", "+seed+", '"+scoreScheme+"', "+allowedAttempts+", 0)";
-			System.out. println(query);
+			//System.out. println(query);
 			int success = 0;
 			try{
 
@@ -154,7 +145,7 @@ public class ProfAddHomework{
         ResultSet rs = stmt.executeQuery();
         rs.next();
         String cid = rs.getString("cid");
-        System.out.println("-----The CID for the course is:" + cid);
+        //System.out.println("-----The CID for the course is:" + cid);
         return cid;
         
 	}

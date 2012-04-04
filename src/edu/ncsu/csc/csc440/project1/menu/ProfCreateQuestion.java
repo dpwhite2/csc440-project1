@@ -28,22 +28,22 @@ public class ProfCreateQuestion {
 	
 	public boolean run(){
 		//get all input
-		String qName = promptUser("What is the name of this question?");
-		String qText = promptUser("What is the question?");
-		String correctText = promptUser("What is the correct answer?");
+		String qName = promptUser("What is the name of this question?\n");
+		String qText = promptUser("What is the question?\n");
+		String correctText = promptUser("What is the correct answer?\n");
 		String[] incorrectText = new String[3];
-		incorrectText[0] = promptUser("What is the 1st incorrect answer?");
-		incorrectText[1] = promptUser("What is the 2nd incorrect answer?");
-		incorrectText[2] = promptUser("What is the 3rd incorrect answer?");
-		String hint = promptUser("What is a hint for this question?");
-		String diff = promptUser("What is the difficulty of this question? (1 through 5)");
+		incorrectText[0] = promptUser("What is the 1st incorrect answer?\n");
+		incorrectText[1] = promptUser("What is the 2nd incorrect answer?\n");
+		incorrectText[2] = promptUser("What is the 3rd incorrect answer?\n");
+		String hint = promptUser("What is a hint for this question?\n");
+		String diff = promptUser("What is the difficulty of this question? (1 through 5)\n");
 		while(!checkDiff(diff)){
 			diff = promptUser("Sorry, your input is not valid. Please enter a number from 1 through 5." +
-					"\nWhat is the difficulty of this question? (0 through 5)");
+					"\nWhat is the difficulty of this question? (0 through 5)\n");
 		}
-		String correctPts = promptUser("How many points are given for a correct answer?");
-		String incorrectPts = promptUser("How many points are deducted for an incorrect answer?");
-		String explanation = promptUser("Please give an explanation for this question.");
+		String correctPts = promptUser("How many points are given for a correct answer?\n");
+		String incorrectPts = promptUser("How many points are deducted for an incorrect answer?\n");
+		String explanation = promptUser("Please give an explanation for this question.\n");
 		int success = -1;
 		
 		//add input to QUESTION table
@@ -72,26 +72,26 @@ public class ProfCreateQuestion {
 			// TODO prompt for unique explanations for each answer
 			//add correct answer
 			String insertQuery = "INSERT INTO Answer VALUES ('"+qName+"', answer_ids.nextval, " +
-					""+correctText+", 1, '"+explanation+"', '" +hint+"')";
+					"'"+correctText+"', 1, '"+explanation+"', '" +hint+"')";
 			Connection conn = DBConnection.getConnection();
 			Statement stmt = conn.createStatement();
 			success = stmt.executeUpdate(insertQuery);
 			
 			//add incorrect answer #1
 			insertQuery = "INSERT INTO Answer VALUES ('"+qName+"', answer_ids.nextval, " +
-					""+incorrectText[0]+", 1, '"+explanation+"', '" +hint+"')";
+					"'"+incorrectText[0]+"', 1, '"+explanation+"', '" +hint+"')";
 			stmt = conn.createStatement();
 			success = stmt.executeUpdate(insertQuery);
 			
 			//add incorrect answer #2
 			insertQuery = "INSERT INTO Answer VALUES ('"+qName+"', answer_ids.nextval, " +
-					""+incorrectText[1]+", 1, '"+explanation+"', '" +hint+"')";
+					"'"+incorrectText[1]+"', 1, '"+explanation+"', '" +hint+"')";
 			stmt = conn.createStatement();
 			success = stmt.executeUpdate(insertQuery);
 			
 			//add incorrect answer #3
 			insertQuery = "INSERT INTO Answer VALUES ('"+qName+"', answer_ids.nextval, " +
-					""+incorrectText[2]+", 1, '"+explanation+"', '" +hint+"')";
+					"'"+incorrectText[2]+"', 1, '"+explanation+"', '" +hint+"')";
 			stmt = conn.createStatement();
 			success = stmt.executeUpdate(insertQuery);
 

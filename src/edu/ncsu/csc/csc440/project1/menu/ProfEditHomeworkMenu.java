@@ -65,7 +65,7 @@ public class ProfEditHomeworkMenu {
 	            maxAttempts = rs.getInt("maximum_attempts");
 	            
 	        }
-	        System.out.println("Current HW --- "+ename);
+	        System.out.println("\n --- Current HW ---");
 	        System.out.println("Name: " + ename +
 	        		"\nStart Date: " + startDate.toString() +
 	        		"\nEnd Date: " + endDate.toString() +
@@ -74,20 +74,30 @@ public class ProfEditHomeworkMenu {
 	        		"\nScore Method: " + scoreMethod +
 	        		"\nMaximum attempts: " + maxAttempts);
 	        
-	        String prompt = "Please enter all data for edited homework with the following fields:\n" +
-	    			"<name of homework> <start date> <end date> <number of attempts allowed>\n" +
-	    			"<score selection scheme> <points for correct answer> <points deducted for incorrect answer>";
-	        
 	        try{
-	        	String ans = promptUser(prompt);
-				Scanner scan = new Scanner(ans);
-				ename = scan.next();
-	            startDate = convertToDate(scan.next());
-	            endDate = convertToDate(scan.next());
-	            maxAttempts = scan.nextInt();
-	            scoreMethod = scan.next();
-	            correctPoints = scan.nextInt();
-	            penaltyPoints = scan.nextInt();
+				ename = promptUser("Homework name: ");
+	            startDate = convertToDate(promptUser("Homework start date (mm/dd/yyy): "));
+	            endDate = convertToDate(promptUser("Homework end date (mm/dd/yyy): "));
+	            maxAttempts = validateInteger(promptUser("Maximum attempts: "));
+	            while(maxAttempts < 0){
+	            	maxAttempts = validateInteger(promptUser("Sorry, your number is not valid. Please try again." +
+	            			"\nMaximum attempts: "));
+	            }
+	            scoreMethod = promptUser("Scoring method ('first attempt', last attempt', 'average', or 'max'): ");
+	            while(!validateScoreMethod(scoreMethod)){
+	            	scoreMethod = promptUser("Sorry, that is not a valid scoring method. Please try again.\n" +
+	            			"Scoring method ('first attempt', last attempt', 'average', or 'max'):\n");
+	            }
+	            correctPoints = validateInteger(promptUser("Points for correct answer: "));
+	            while(correctPoints < 0){
+	            	correctPoints = validateInteger(promptUser("Sorry, your number is not valid. Please try again.\n" +
+	            			"Points for correct answer: "));
+	            }
+	            penaltyPoints = validateInteger(promptUser("Points for incorrect answer: "));
+	            while(penaltyPoints < 0){
+	            	penaltyPoints = validateInteger(promptUser("Sorry, your number is not valid. Please try again.\n" +
+	            			"Points for incorrect answer: "));
+	            }
 	            
 	        
 	            try{
@@ -155,6 +165,31 @@ public class ProfEditHomeworkMenu {
 			System.out.println("Error converting string to date: " + e.getMessage());
 		}
 		return d;
+		
+	}
+	
+	private int validateInteger(String response){
+		try{
+			int num = Integer.parseInt(response);
+			if(num >= 0) return num;
+			else{
+				return -1;
+			}
+		}
+		catch(Exception e){
+			return -1;
+		}
+		
+	}
+	
+	private boolean validateScoreMethod(String response){
+		if(response.equals("first attempt"))return true;
+		else if (response.equals("last_attempt")) return true;
+		else if (response.equals("average")) return true;
+		else if (response.equals("max")) return true;
+		else{
+			return false;
+		}
 		
 	}
 }
